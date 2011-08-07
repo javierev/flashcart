@@ -1,21 +1,21 @@
 /**
  * This file is part of Flash Chart.
- * 
+ *
  * Copyright (C) 2011 Javier Estévez
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 package com.valdaris.shoppinglist.data;
 
@@ -40,6 +40,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     private Dao<Product, Integer> productDao;
+    private Dao<ShoppingList, Integer> listDao;
 
     public DatabaseHelper(Context context) {
 	super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,6 +50,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase arg0, ConnectionSource connectionSource) {
 	try {
 	    TableUtils.createTable(connectionSource, Product.class);
+	    TableUtils.createTable(connectionSource, ShoppingList.class);
 	} catch (SQLException e) {
 	    Log.e(DatabaseHelper.class.getName(), "Unable to create database");
 	}
@@ -69,6 +71,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	    productDao = getDao(Product.class);
 	}
 	return productDao;
+    }
+
+    public Dao<ShoppingList, Integer> getListDao() throws SQLException {
+	if (listDao == null) {
+	    listDao = getDao(ShoppingList.class);
+	}
+	return listDao;
     }
 
 }

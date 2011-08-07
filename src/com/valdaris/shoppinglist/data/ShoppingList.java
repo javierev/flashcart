@@ -30,7 +30,7 @@ import com.j256.ormlite.table.DatabaseTable;
  *
  */
 @DatabaseTable
-public class List implements Serializable {
+public class ShoppingList implements Serializable {
 
     private static final long serialVersionUID = -2657829638082397222L;
 

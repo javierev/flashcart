@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Main!</string>
     <string name="app_name">Flash Chart</string>
     <string name="menu_insert">Add Product</string>
     <string name="product_name">Product Name</string>
@@ -9,4 +8,6 @@
     <string name="status_incomplete">Incomplete</string>
     <string name="status_complete">Complete</string>
     <string name="status_finished">Finished shopping</string>
+    <string name="no_list">There\'s no shopping lists yet</string>
+    <string name="no_products">There\'s no products yet</string>
 </resources>
