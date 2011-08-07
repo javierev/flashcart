@@ -7,4 +7,4 @@ Flash Chart is a very simple android application for creating your own shopping 
 * Create new products (it store your products, saving your time)
 * Mark products as picked
 
-This software is being developed by Javier Estévez. To contact me please send an e-mail to valdaris [at] gmail.com 
+This software is being developed by  [Javier Estévez]{http://valdaris.com/}. To contact me please send an e-mail to valdaris [at] gmail.com 
