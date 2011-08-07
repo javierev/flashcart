@@ -5,4 +5,8 @@
     <string name="menu_insert">Add Product</string>
     <string name="product_name">Product Name</string>
     <string name="save">Save</string>
+    <string name="status_empty">Empty List</string>
+    <string name="status_incomplete">Incomplete</string>
+    <string name="status_complete">Complete</string>
+    <string name="status_finished">Finished shopping</string>
 </resources>
