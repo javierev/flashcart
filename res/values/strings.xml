@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, Main!</string>
+    <string name="app_name">My Shopping List</string>
+    <string name="menu_insert">Add Product</string>
+    <string name="product_name">Product Name</string>
+    <string name="save">Save</string>
+</resources>
