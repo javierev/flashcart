@@ -29,6 +29,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -48,6 +50,9 @@ import com.valdaris.shoppinglist.data.ShoppingList;
 public class Main extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private ListView listView;
+    private TextView textView;
+
+    private static final int INSERT_ID = Menu.FIRST;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +60,39 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> {
 	setContentView(R.layout.main);
 
 	listView = (ListView) findViewById(R.id.list);
+	textView = (TextView) findViewById(R.id.list_empty);
+
+	registerForContextMenu(listView);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+	super.onCreateOptionsMenu(menu);
+	menu.add(0, INSERT_ID, 0, R.string.menu_create_list);
+	return true;
+    }
 
 
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+	switch(item.getItemId()) {
+	case INSERT_ID:
+	    createList();
+	    return true;
+	}
+	return super.onMenuItemSelected(featureId, item);
+    }
+
+    private void createList() {
+	try {
+	    ShoppingList sList = new ShoppingList();
+	    sList.setCreationDate(new Date());
+	    sList.setStatus(ShoppingList.EMPTY);
+	    Dao<ShoppingList, Integer> dao = getHelper().getShoppingListDao();
+	    dao.create(sList);
+	    fillList();
+	} catch (SQLException e) {
+	    throw new RuntimeException(e);
+	}
     }
 
     @Override
@@ -72,12 +108,18 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private void fillList() throws SQLException {
 	Log.i(ShoppingList.class.getName(), "Showing shopping lists");
-	Dao<ShoppingList, Integer> dao = getHelper().getListDao();
+	Dao<ShoppingList, Integer> dao = getHelper().getShoppingListDao();
 	QueryBuilder<ShoppingList, Integer> builder = dao.queryBuilder();
 	builder.orderBy(ShoppingList.DATA_CREATION_FIELD_NAME, false);
 	List<ShoppingList> list = dao.query(builder.prepare());
-	ArrayAdapter<ShoppingList> arrayAdapter = new ShoppingListAdapter(this, R.layout.shoppinglist_row, list);
-	listView.setAdapter(arrayAdapter);
+	if (list.size()>0) {
+	    ArrayAdapter<ShoppingList> arrayAdapter = new ShoppingListAdapter(this, R.layout.shoppinglist_row, list);
+	    listView.setAdapter(arrayAdapter);
+	    listView.setVisibility(View.VISIBLE);
+	    textView.setVisibility(View.GONE);
+	} else {
+	    listView.setVisibility(View.GONE);
+	}
     }
 
     private class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
@@ -105,8 +147,8 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> {
 	private void fillText(View v, int id, Date creationDate) {
 
 	    Locale currentLocale = Locale.getDefault();
-	    DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT,
-		        currentLocale);
+	    DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.DEFAULT,
+		        DateFormat.MEDIUM, currentLocale);
 
 	    TextView textView = (TextView) v.findViewById(id);
 	    textView.setText(creationDate == null ? "" : dateFormat.format(creationDate));

@@ -53,7 +53,7 @@ public class ShoppingList implements Serializable {
     private Date buyDate;
 
     @DatabaseField(columnName = STATUS_FIELD_NAME)
-    private String status;
+    private char status;
 
     public Integer getId() {
         return id;
@@ -79,12 +79,13 @@ public class ShoppingList implements Serializable {
         this.buyDate = buyDate;
     }
 
-    public String getStatus() {
+    public char getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(char status) {
         this.status = status;
+
     }
 
 }

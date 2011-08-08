@@ -73,7 +73,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	return productDao;
     }
 
-    public Dao<ShoppingList, Integer> getListDao() throws SQLException {
+    public Dao<ShoppingList, Integer> getShoppingListDao() throws SQLException {
 	if (listDao == null) {
 	    listDao = getDao(ShoppingList.class);
 	}

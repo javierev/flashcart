@@ -83,7 +83,7 @@ public class ProductList extends OrmLiteBaseActivity<DatabaseHelper> {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 	super.onCreateOptionsMenu(menu);
-	menu.add(0, INSERT_ID, 0, R.string.menu_insert);
+	menu.add(0, INSERT_ID, 0, R.string.menu_insert_product);
 	return true;
     }
 
