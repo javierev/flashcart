@@ -37,21 +37,21 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.valdaris.shoppinglist.data.DataHandler;
 import com.valdaris.shoppinglist.data.DatabaseHelper;
 import com.valdaris.shoppinglist.data.ShoppingList;
-import com.valdaris.shoppinglist.presenter.ShoppingListListPresenter;
-import com.valdaris.shoppinglist.view.IShoppingListListView;
+import com.valdaris.shoppinglist.presenter.FlashListPresenter;
+import com.valdaris.shoppinglist.view.IFlashListView;
 
 /**
  * @author Javier Estévez
  *
  */
-public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IShoppingListListView {
+public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IFlashListView {
 
     private ListView listView;
     private TextView textView;
 
     private static final int INSERT_ID = Menu.FIRST;
 
-    private ShoppingListListPresenter presenter;
+    private FlashListPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IShoppi
 	super.onCreate(savedInstanceState);
 	DatabaseHelper helper = getHelper();
 
-	presenter = new ShoppingListListPresenter(this, new DataHandler(helper));
+	presenter = new FlashListPresenter(this, new DataHandler(helper));
 
 	setContentView(R.layout.main);
 

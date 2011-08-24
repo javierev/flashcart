@@ -25,7 +25,7 @@ import java.util.List;
  * @author Javier Estévez
  *
  */
-public interface IShoppingListListView {
+public interface IFlashListView {
 
     /**
      * Fill the UI list with the given String List.

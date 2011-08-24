@@ -27,18 +27,18 @@ import java.util.Locale;
 
 import com.valdaris.shoppinglist.data.IDataHandler;
 import com.valdaris.shoppinglist.data.ShoppingList;
-import com.valdaris.shoppinglist.view.IShoppingListListView;
+import com.valdaris.shoppinglist.view.IFlashListView;
 
 /**
  * @author Javier Estévez
  *
  */
-public class ShoppingListListPresenter {
+public class FlashListPresenter {
 
-    IShoppingListListView view;
+    IFlashListView view;
     IDataHandler dataHandler;
 
-    public ShoppingListListPresenter(IShoppingListListView view, IDataHandler dataHandler) {
+    public FlashListPresenter(IFlashListView view, IDataHandler dataHandler) {
 	this.view = view;
 	this.dataHandler = dataHandler;
     }
