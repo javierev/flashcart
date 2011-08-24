@@ -19,11 +19,7 @@
  */
 package com.valdaris.shoppinglist;
 
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -38,25 +34,33 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
+import com.valdaris.shoppinglist.data.DataHandler;
 import com.valdaris.shoppinglist.data.DatabaseHelper;
 import com.valdaris.shoppinglist.data.ShoppingList;
+import com.valdaris.shoppinglist.presenter.ShoppingListListPresenter;
+import com.valdaris.shoppinglist.view.IShoppingListListView;
 
 /**
  * @author Javier Estévez
  *
  */
-public class Main extends OrmLiteBaseActivity<DatabaseHelper> {
+public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IShoppingListListView {
 
     private ListView listView;
     private TextView textView;
 
     private static final int INSERT_ID = Menu.FIRST;
 
+    private ShoppingListListPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
 	super.onCreate(savedInstanceState);
+	DatabaseHelper helper = getHelper();
+
+	presenter = new ShoppingListListPresenter(this, new DataHandler(helper));
+
 	setContentView(R.layout.main);
 
 	listView = (ListView) findViewById(R.id.list);
@@ -76,55 +80,21 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> {
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
 	switch(item.getItemId()) {
 	case INSERT_ID:
-	    createList();
+	    presenter.createList();
 	    return true;
 	}
 	return super.onMenuItemSelected(featureId, item);
     }
 
-    private void createList() {
-	try {
-	    ShoppingList sList = new ShoppingList();
-	    sList.setCreationDate(new Date());
-	    sList.setStatus(ShoppingList.EMPTY);
-	    Dao<ShoppingList, Integer> dao = getHelper().getShoppingListDao();
-	    dao.create(sList);
-	    fillList();
-	} catch (SQLException e) {
-	    throw new RuntimeException(e);
-	}
-    }
-
     @Override
     protected void onResume() {
 	super.onResume();
-	try {
-	    fillList();
-	} catch (SQLException e) {
-	    throw new RuntimeException(e);
-	}
+	presenter.fillList();
     }
 
+    private class ShoppingListAdapter extends ArrayAdapter<String> {
 
-    private void fillList() throws SQLException {
-	Log.i(ShoppingList.class.getName(), "Showing shopping lists");
-	Dao<ShoppingList, Integer> dao = getHelper().getShoppingListDao();
-	QueryBuilder<ShoppingList, Integer> builder = dao.queryBuilder();
-	builder.orderBy(ShoppingList.DATA_CREATION_FIELD_NAME, false);
-	List<ShoppingList> list = dao.query(builder.prepare());
-	if (list.size()>0) {
-	    ArrayAdapter<ShoppingList> arrayAdapter = new ShoppingListAdapter(this, R.layout.shoppinglist_row, list);
-	    listView.setAdapter(arrayAdapter);
-	    listView.setVisibility(View.VISIBLE);
-	    textView.setVisibility(View.GONE);
-	} else {
-	    listView.setVisibility(View.GONE);
-	}
-    }
-
-    private class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
-
-	public ShoppingListAdapter(Context context, int textViewResourceId, List<ShoppingList> objects) {
+	public ShoppingListAdapter(Context context, int textViewResourceId, List<String> objects) {
 	    super(context, textViewResourceId, objects);
 	}
 
@@ -137,26 +107,39 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> {
 		v = vi.inflate(R.layout.shoppinglist_row, null);
 	    }
 
-	    ShoppingList sList = getItem(position);
+	    String sList = getItem(position);
 
-	    fillText(v, R.id.listCreationDate, sList.getCreationDate());
+	    TextView textView = (TextView) v.findViewById(R.id.listCreationDate);
+	    textView.setText(sList);
 
 	    return v;
 	}
 
-	private void fillText(View v, int id, Date creationDate) {
+    }
 
-	    Locale currentLocale = Locale.getDefault();
-	    DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.DEFAULT,
-		        DateFormat.MEDIUM, currentLocale);
-
-	    TextView textView = (TextView) v.findViewById(id);
-	    textView.setText(creationDate == null ? "" : dateFormat.format(creationDate));
-
+    /* (non-Javadoc)
+     * @see com.valdaris.shoppinglist.view.IShoppingListListView#fillList(java.util.List)
+     */
+    @Override
+    public void fillList(List<String> list) {
+	Log.i(ShoppingList.class.getName(), "Showing shopping lists");
+	if (list.size()>0) {
+	    ArrayAdapter<String> arrayAdapter = new ShoppingListAdapter(this, R.layout.shoppinglist_row, list);
+	    listView.setAdapter(arrayAdapter);
+	    listView.setVisibility(View.VISIBLE);
+	    textView.setVisibility(View.GONE);
+	} else {
+	    listView.setVisibility(View.GONE);
 	}
+    }
 
-
-
+    /* (non-Javadoc)
+     * @see com.valdaris.shoppinglist.view.IShoppingListListView#getListItem(long)
+     */
+    @Override
+    public String getListItem(long pos) {
+	// TODO get string
+	return "";
     }
 
 }
