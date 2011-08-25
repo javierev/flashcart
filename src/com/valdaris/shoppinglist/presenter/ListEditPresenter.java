@@ -17,29 +17,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.valdaris.shoppinglist.view;
+package com.valdaris.shoppinglist.presenter;
 
 import java.util.List;
 
+import com.valdaris.shoppinglist.data.IDataHandler;
+import com.valdaris.shoppinglist.data.ListProduct;
 import com.valdaris.shoppinglist.data.ShoppingList;
+import com.valdaris.shoppinglist.view.IListEdit;
 
 /**
  * @author Javier Estévez
  *
  */
-public interface IFlashListView {
+public class ListEditPresenter {
 
-    /**
-     * Fill the UI list with the given String List.
-     * @param list
-     */
-    public void fillList(List<ShoppingList> list);
+    IListEdit view;
+    IDataHandler dataHandler;
 
-    /**
-     * Get list item from the given position
-     * @param pos
-     * @return
-     */
-    public String getListItem(int pos);
+    public ListEditPresenter(IListEdit view, IDataHandler dataHandler) {
+	this.view = view;
+	this.dataHandler = dataHandler;
+    }
+
+    public void fillList(int listId) {
+
+	ShoppingList list = new ShoppingList();
+	list.setId(listId);
+
+	List<ListProduct> products = dataHandler.getListProducts(list);
+
+	view.fillList(products);
+    }
 
 }

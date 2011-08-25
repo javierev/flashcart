@@ -19,11 +19,8 @@
  */
 package com.valdaris.shoppinglist.presenter;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import com.valdaris.shoppinglist.data.IDataHandler;
 import com.valdaris.shoppinglist.data.ShoppingList;
@@ -48,11 +45,7 @@ public class FlashListPresenter {
      */
     public void fillList() {
 	List<ShoppingList> list = dataHandler.getLists();
-	ArrayList<String> shownList = new ArrayList<String>();
-	for(ShoppingList sl : list) {
-	    shownList.add(getCreationDateString(sl.getCreationDate()));
-	}
-	view.fillList(shownList);
+	view.fillList(list);
     }
 
     /**
@@ -66,12 +59,7 @@ public class FlashListPresenter {
 	fillList();
     }
 
-    private String getCreationDateString(Date creationDate) {
-	Locale currentLocale = Locale.getDefault();
-	DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.DEFAULT,
-		DateFormat.MEDIUM, currentLocale);
-	return creationDate == null ? "" : dateFormat.format(creationDate);
-    }
+
 
 
 

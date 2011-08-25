@@ -41,6 +41,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<Product, Integer> productDao;
     private Dao<ShoppingList, Integer> listDao;
+    private Dao<ListProduct, Integer> listProductDao;
 
     public DatabaseHelper(Context context) {
 	super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,6 +52,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	try {
 	    TableUtils.createTable(connectionSource, Product.class);
 	    TableUtils.createTable(connectionSource, ShoppingList.class);
+	    TableUtils.createTable(connectionSource, ListProduct.class);
 	} catch (SQLException e) {
 	    Log.e(DatabaseHelper.class.getName(), "Unable to create database");
 	}
@@ -61,6 +63,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	    int newVersion) {
 	try {
 	    TableUtils.dropTable(connectionSource, Product.class, true);
+	    TableUtils.dropTable(connectionSource, ShoppingList.class, true);
+//	    TableUtils.dropTable(connectionSource, ListProduct.class, true);
 	} catch (SQLException e) {
 	    Log.e(DatabaseHelper.class.getName(), "Unable to upgrade database");
 	}
@@ -78,6 +82,13 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	    listDao = getDao(ShoppingList.class);
 	}
 	return listDao;
+    }
+
+    public Dao<ListProduct, Integer> getListProductDao() throws SQLException {
+	if (listProductDao == null) {
+	    listProductDao = getDao(ListProduct.class);
+	}
+	return listProductDao;
     }
 
 }

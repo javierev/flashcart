@@ -20,7 +20,9 @@
 package com.valdaris.shoppinglist.data;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -37,6 +39,7 @@ public class ShoppingList implements Serializable {
     public static final String DATA_CREATION_FIELD_NAME = "cDate";
     public static final String DATA_BUY_FIELD_NAME = "bDate";
     public static final String STATUS_FIELD_NAME = "status";
+    public static final String LIST_NAME = "name";
 
     public static final char EMPTY = 'e';
     public static final char INCOMPLETE = 'i';
@@ -54,6 +57,9 @@ public class ShoppingList implements Serializable {
 
     @DatabaseField(columnName = STATUS_FIELD_NAME)
     private char status;
+
+    @DatabaseField(columnName = LIST_NAME, canBeNull=true)
+    private String name;
 
     public Integer getId() {
         return id;
@@ -86,6 +92,25 @@ public class ShoppingList implements Serializable {
     public void setStatus(char status) {
         this.status = status;
 
+    }
+
+    public String getName() {
+	if (name!=null) {
+	    return name;
+	} else {
+	    return getCreationDateString();
+	}
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    private String getCreationDateString() {
+	Locale currentLocale = Locale.getDefault();
+	DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.DEFAULT,
+		DateFormat.MEDIUM, currentLocale);
+	return creationDate == null ? "" : dateFormat.format(creationDate);
     }
 
 }

@@ -14,6 +14,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProductEdit" android:label="Edit Product" android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".ListEdit" android:label="Edit List" android:windowSoftInputMode="stateVisible|adjustResize" />
 
     </application>
 </manifest>

@@ -24,6 +24,7 @@ import java.util.List;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
+import com.j256.ormlite.stmt.Where;
 
 /**
  * @author Javier Estévez
@@ -63,6 +64,24 @@ public class DataHandler implements IDataHandler {
 	try {
 	    Dao<ShoppingList, Integer> dao = helper.getShoppingListDao();
 	    dao.create(list);
+	} catch (SQLException e) {
+	    throw new RuntimeException(e);
+	}
+    }
+
+    /* (non-Javadoc)
+     * @see com.valdaris.shoppinglist.data.IDataHandler#getListProducts(com.valdaris.shoppinglist.data.ShoppingList)
+     */
+    @Override
+    public List<ListProduct> getListProducts(ShoppingList list) {
+	try {
+	    Dao<ListProduct, Integer> dao = helper.getListProductDao();
+	    QueryBuilder<ListProduct, Integer> builder = dao.queryBuilder();
+	    Where<ListProduct, Integer> where = builder.where();
+	    where.eq(ListProduct.LIST_ID_FIELD, list);
+	    builder.setWhere(where);
+	    List<ListProduct> products = builder.query();
+	    return products;
 	} catch (SQLException e) {
 	    throw new RuntimeException(e);
 	}

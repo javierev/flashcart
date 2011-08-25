@@ -21,25 +21,14 @@ package com.valdaris.shoppinglist.view;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.data.ShoppingList;
+import com.valdaris.shoppinglist.data.ListProduct;
 
 /**
  * @author Javier Estévez
  *
  */
-public interface IFlashListView {
+public interface IListEdit {
 
-    /**
-     * Fill the UI list with the given String List.
-     * @param list
-     */
-    public void fillList(List<ShoppingList> list);
-
-    /**
-     * Get list item from the given position
-     * @param pos
-     * @return
-     */
-    public String getListItem(int pos);
+    public void fillList(List<ListProduct> products);
 
 }

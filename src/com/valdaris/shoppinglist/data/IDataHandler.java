@@ -31,4 +31,6 @@ public interface IDataHandler {
 
     public void create(ShoppingList list);
 
+    public List<ListProduct> getListProducts(ShoppingList list);
+
 }

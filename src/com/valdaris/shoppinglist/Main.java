@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -66,6 +67,27 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IFlashL
 	listView = (ListView) findViewById(R.id.list);
 	textView = (TextView) findViewById(R.id.list_empty);
 
+	listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+	    @Override
+	    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		    long arg3) {
+		ShoppingList list = (ShoppingList) listView.getAdapter().getItem(arg2);
+		Log.i(Main.class.getName(), "List selected: " + list.getName());
+		switch (list.getStatus()) {
+		case ShoppingList.EMPTY:
+		case ShoppingList.INCOMPLETE:
+		    ListEdit.callMe(Main.this, list.getId());
+		    break;
+		case ShoppingList.COMPLETE:
+		case ShoppingList.FINISHED:
+		default:
+		    //TODO open non editable list
+		}
+	    }
+
+	});
+
 	registerForContextMenu(listView);
     }
 
@@ -92,9 +114,9 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IFlashL
 	presenter.fillList();
     }
 
-    private class ShoppingListAdapter extends ArrayAdapter<String> {
+    private class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
 
-	public ShoppingListAdapter(Context context, int textViewResourceId, List<String> objects) {
+	public ShoppingListAdapter(Context context, int textViewResourceId, List<ShoppingList> objects) {
 	    super(context, textViewResourceId, objects);
 	}
 
@@ -107,10 +129,10 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IFlashL
 		v = vi.inflate(R.layout.shoppinglist_row, null);
 	    }
 
-	    String sList = getItem(position);
+	    ShoppingList sList = getItem(position);
 
 	    TextView textView = (TextView) v.findViewById(R.id.listCreationDate);
-	    textView.setText(sList);
+	    textView.setText(sList.getName());
 
 	    return v;
 	}
@@ -121,10 +143,10 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IFlashL
      * @see com.valdaris.shoppinglist.view.IShoppingListListView#fillList(java.util.List)
      */
     @Override
-    public void fillList(List<String> list) {
+    public void fillList(List<ShoppingList> list) {
 	Log.i(ShoppingList.class.getName(), "Showing shopping lists");
 	if (list.size()>0) {
-	    ArrayAdapter<String> arrayAdapter = new ShoppingListAdapter(this, R.layout.shoppinglist_row, list);
+	    ArrayAdapter<ShoppingList> arrayAdapter = new ShoppingListAdapter(this, R.layout.shoppinglist_row, list);
 	    listView.setAdapter(arrayAdapter);
 	    listView.setVisibility(View.VISIBLE);
 	    textView.setVisibility(View.GONE);
@@ -137,9 +159,10 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements IFlashL
      * @see com.valdaris.shoppinglist.view.IShoppingListListView#getListItem(long)
      */
     @Override
-    public String getListItem(long pos) {
+    public String getListItem(int pos) {
 	// TODO get string
-	return "";
+	ShoppingList list = (ShoppingList) listView.getAdapter().getItem(pos);
+	return list.getName();
     }
 
 }
