@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Flash Chart</string>
+    <string name="app_name">Flash Cart</string>
     <string name="menu_insert_product">Add Product</string>
     <string name="menu_create_list">New List</string>
     <string name="product_name">Product Name</string>

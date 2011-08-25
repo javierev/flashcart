@@ -1,5 +1,5 @@
 /**
- * This file is part of Flash Chart.
+ * This file is part of Flash Cart.
  * 
  * Copyright (C) 2011 Javier Estévez
  * 

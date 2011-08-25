@@ -1,6 +1,6 @@
-# Flash Chart
+# Flash Cart
 
-Flash Chart is a very simple android application for creating your own shopping list. It does nothing yet, but sooner or later it will be able to:
+Flash Cart is a very simple android application for creating your own shopping list. It does nothing yet, but sooner or later it will be able to:
 
 * Create new shopping list
 * Add as many products as you want to your list
