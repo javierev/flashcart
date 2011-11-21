@@ -26,7 +26,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 @DatabaseTable
 public class Product implements Serializable {
@@ -42,21 +42,19 @@ public class Product implements Serializable {
     private String name;
 
     public void setId(Integer id) {
-	this.id = id;
+        this.id = id;
     }
 
     public Integer getId() {
-	return id;
+        return id;
     }
 
     public void setName(String name) {
-	this.name = name;
+        this.name = name;
     }
 
     public String getName() {
-	return name;
+        return name;
     }
-
-
 
 }

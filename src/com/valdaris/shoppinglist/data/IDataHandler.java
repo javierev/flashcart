@@ -26,25 +26,30 @@ import com.valdaris.shoppinglist.data.model.ShoppingList;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public interface IDataHandler {
-	
-	/**
-	 * Obtains a list of all shopping lists.
-	 * @return list of shopping lists.
-	 */
+
+    /**
+     * Obtains a list of all shopping lists.
+     * 
+     * @return list of shopping lists.
+     */
     public List<ShoppingList> getLists();
 
     /**
      * Saves a new shopping list on the Data Base.
-     * @param list shopping list
+     * 
+     * @param list
+     *            shopping list
      */
     public void create(ShoppingList list);
 
     /**
      * Obtains all products from a given shopping list.
-     * @param list the shopping list.
+     * 
+     * @param list
+     *            the shopping list.
      * @return list of products.
      */
     public List<ListProduct> getListProducts(ShoppingList list);

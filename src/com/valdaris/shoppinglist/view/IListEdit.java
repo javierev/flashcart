@@ -25,14 +25,15 @@ import com.valdaris.shoppinglist.data.model.ListProduct;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public interface IListEdit {
 
-	/**
-	 * Fill the UI list with the given list of products.
-	 * @param products
-	 */
+    /**
+     * Fill the UI list with the given list of products.
+     * 
+     * @param products
+     */
     public void fillList(List<ListProduct> products);
 
 }

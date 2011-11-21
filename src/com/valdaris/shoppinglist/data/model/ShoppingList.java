@@ -29,7 +29,7 @@ import com.j256.ormlite.table.DatabaseTable;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 @DatabaseTable
 public class ShoppingList implements Serializable {
@@ -58,7 +58,7 @@ public class ShoppingList implements Serializable {
     @DatabaseField(columnName = STATUS_FIELD_NAME)
     private char status;
 
-    @DatabaseField(columnName = LIST_NAME, canBeNull=true)
+    @DatabaseField(columnName = LIST_NAME, canBeNull = true)
     private String name;
 
     public Integer getId() {
@@ -95,11 +95,11 @@ public class ShoppingList implements Serializable {
     }
 
     public String getName() {
-	if (name!=null) {
-	    return name;
-	} else {
-	    return getCreationDateString();
-	}
+        if (name != null) {
+            return name;
+        } else {
+            return getCreationDateString();
+        }
     }
 
     public void setName(String name) {
@@ -107,10 +107,10 @@ public class ShoppingList implements Serializable {
     }
 
     private String getCreationDateString() {
-	Locale currentLocale = Locale.getDefault();
-	DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.DEFAULT,
-		DateFormat.MEDIUM, currentLocale);
-	return creationDate == null ? "" : dateFormat.format(creationDate);
+        Locale currentLocale = Locale.getDefault();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(
+                DateFormat.DEFAULT, DateFormat.MEDIUM, currentLocale);
+        return creationDate == null ? "" : dateFormat.format(creationDate);
     }
 
 }

@@ -25,18 +25,20 @@ import com.valdaris.shoppinglist.data.model.ShoppingList;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public interface IFlashListView {
 
     /**
      * Fill the UI list with the given shopping List.
+     * 
      * @param list
      */
     public void fillList(List<ShoppingList> list);
 
     /**
      * Get list item from the given position
+     * 
      * @param pos
      * @return
      */

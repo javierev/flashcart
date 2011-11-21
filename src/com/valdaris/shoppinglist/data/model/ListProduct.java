@@ -25,7 +25,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public class ListProduct implements Serializable {
 
@@ -36,30 +36,31 @@ public class ListProduct implements Serializable {
     public static final String AMOUNT_FIELD = "amount";
     public static final String BOUGHT_FIELD = "bought";
 
-    @DatabaseField(generatedId=true)
+    @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(foreign=true, columnName=LIST_ID_FIELD)
+    @DatabaseField(foreign = true, columnName = LIST_ID_FIELD)
     private ShoppingList list;
 
-    @DatabaseField(foreign=true, columnName=PRODUCT_ID_FIELD)
+    @DatabaseField(foreign = true, columnName = PRODUCT_ID_FIELD)
     private Product product;
 
-    @DatabaseField(columnName=AMOUNT_FIELD)
+    @DatabaseField(columnName = AMOUNT_FIELD)
     private Integer amount;
 
-    @DatabaseField(columnName=BOUGHT_FIELD)
+    @DatabaseField(columnName = BOUGHT_FIELD)
     private Boolean bought;
 
     public ListProduct() {
 
     }
 
-    public ListProduct(ShoppingList list, Product product, int amount, boolean bought) {
-	this.list = list;
-	this.product = product;
-	this.amount = amount;
-	this.bought = bought;
+    public ListProduct(ShoppingList list, Product product, int amount,
+            boolean bought) {
+        this.list = list;
+        this.product = product;
+        this.amount = amount;
+        this.bought = bought;
     }
 
     public Integer getId() {
@@ -87,19 +88,19 @@ public class ListProduct implements Serializable {
     }
 
     public Integer getAmount() {
-	return amount;
+        return amount;
     }
 
     public void setAmount(Integer amount) {
-	this.amount = amount;
+        this.amount = amount;
     }
 
     public Boolean getBought() {
-	return bought;
+        return bought;
     }
 
     public void setBought(Boolean bought) {
-	this.bought = bought;
+        this.bought = bought;
     }
 
 }
