@@ -41,78 +41,81 @@ import com.valdaris.shoppinglist.view.IListEdit;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
-public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements IListEdit{
+public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
+        IListEdit {
 
     private static final String LIST_ID = "listId";
 
     private ListView listView;
-//    private Button saveButton;
+    // private Button saveButton;
 
     private ListEditPresenter presenter;
 
     protected void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
-	presenter = new ListEditPresenter(this, new DataHandler(getHelper()));
+        presenter = new ListEditPresenter(this, new DataHandler(getHelper()));
 
-	setContentView(R.layout.list_edit);
+        setContentView(R.layout.list_edit);
 
-	listView = (ListView) findViewById(R.id.edit_product_list);
+        listView = (ListView) findViewById(R.id.edit_product_list);
 
     }
 
     protected void onResume() {
-	super.onResume();
-	presenter.fillList(getListId());
+        super.onResume();
+        presenter.fillList(getListId());
     }
 
-
     public static void callMe(Context c, Integer listId) {
-	Intent intent = new Intent(c, ListEdit.class);
-	intent.putExtra(LIST_ID, listId);
-	c.startActivity(intent);
+        Intent intent = new Intent(c, ListEdit.class);
+        intent.putExtra(LIST_ID, listId);
+        c.startActivity(intent);
     }
 
     private int getListId() {
-	return getIntent().getIntExtra(LIST_ID, -1);
+        return getIntent().getIntExtra(LIST_ID, -1);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.valdaris.shoppinglist.view.IListEdit#fillList(java.util.List)
      */
     @Override
     public void fillList(List<ListProduct> products) {
-	Log.i(ListEdit.class.getName(), "Showing products in list id " + getListId());
-	ArrayAdapter<ListProduct> arrayAdapter = new ListProductAdapter(this, R.layout.list_edit_row, products);
-	listView.setAdapter(arrayAdapter);
+        Log.i(ListEdit.class.getName(), "Showing products in list id "
+                + getListId());
+        ArrayAdapter<ListProduct> arrayAdapter = new ListProductAdapter(this,
+                R.layout.list_edit_row, products);
+        listView.setAdapter(arrayAdapter);
     }
 
     private class ListProductAdapter extends ArrayAdapter<ListProduct> {
 
+        public ListProductAdapter(Context context, int textViewResourceId,
+                List<ListProduct> objects) {
+            super(context, textViewResourceId, objects);
+        }
 
-	public ListProductAdapter(Context context,
-		int textViewResourceId, List<ListProduct> objects) {
-	    super(context, textViewResourceId, objects);
-	}
+        public View getView(int position, View convertView, ViewGroup parent) {
 
-	public View getView(int position, View convertView, ViewGroup parent) {
+            View v = convertView;
+            if (v == null) {
+                LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.list_edit_row, null);
+            }
 
-	    View v = convertView;
-	    if (v == null) {
-		LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		v = vi.inflate(R.layout.list_edit_row, null);
-	    }
+            ListProduct product = getItem(position);
 
-	    ListProduct product = getItem(position);
+            TextView text = (TextView) v.findViewById(R.id.editProductList);
+            text.setText(product.getProduct().getName());
 
-	    TextView text = (TextView) v.findViewById(R.id.editProductList);
-	    text.setText(product.getProduct().getName());
+            return v;
 
-	    return v;
-
-	}
+        }
 
     }
 

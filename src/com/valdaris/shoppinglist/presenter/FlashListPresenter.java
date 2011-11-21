@@ -28,7 +28,7 @@ import com.valdaris.shoppinglist.view.IFlashListView;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public class FlashListPresenter {
 
@@ -36,31 +36,27 @@ public class FlashListPresenter {
     IDataHandler dataHandler;
 
     public FlashListPresenter(IFlashListView view, IDataHandler dataHandler) {
-	this.view = view;
-	this.dataHandler = dataHandler;
+        this.view = view;
+        this.dataHandler = dataHandler;
     }
 
     /**
      * Fills UI List
      */
     public void fillList() {
-	List<ShoppingList> list = dataHandler.getLists();
-	view.fillList(list);
+        List<ShoppingList> list = dataHandler.getLists();
+        view.fillList(list);
     }
 
     /**
      * Creates a new list
      */
     public void createList() {
-	ShoppingList sList = new ShoppingList();
-	sList.setCreationDate(new Date());
-	sList.setStatus(ShoppingList.EMPTY);
-	dataHandler.create(sList);
-	fillList();
+        ShoppingList sList = new ShoppingList();
+        sList.setCreationDate(new Date());
+        sList.setStatus(ShoppingList.EMPTY);
+        dataHandler.create(sList);
+        fillList();
     }
-
-
-
-
 
 }

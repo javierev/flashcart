@@ -35,7 +35,7 @@ import com.valdaris.shoppinglist.data.model.ShoppingList;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
@@ -47,51 +47,51 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<ListProduct, Integer> listProductDao;
 
     public DatabaseHelper(Context context) {
-	super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase arg0, ConnectionSource connectionSource) {
-	try {
-	    TableUtils.createTable(connectionSource, Product.class);
-	    TableUtils.createTable(connectionSource, ShoppingList.class);
-	    TableUtils.createTable(connectionSource, ListProduct.class);
-	} catch (SQLException e) {
-	    Log.e(DatabaseHelper.class.getName(), "Unable to create database");
-	}
+        try {
+            TableUtils.createTable(connectionSource, Product.class);
+            TableUtils.createTable(connectionSource, ShoppingList.class);
+            TableUtils.createTable(connectionSource, ListProduct.class);
+        } catch (SQLException e) {
+            Log.e(DatabaseHelper.class.getName(), "Unable to create database");
+        }
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion,
-	    int newVersion) {
-	try {
-	    TableUtils.dropTable(connectionSource, Product.class, true);
-	    TableUtils.dropTable(connectionSource, ShoppingList.class, true);
-//	    TableUtils.dropTable(connectionSource, ListProduct.class, true);
-	} catch (SQLException e) {
-	    Log.e(DatabaseHelper.class.getName(), "Unable to upgrade database");
-	}
+    public void onUpgrade(SQLiteDatabase database,
+            ConnectionSource connectionSource, int oldVersion, int newVersion) {
+        try {
+            TableUtils.dropTable(connectionSource, Product.class, true);
+            TableUtils.dropTable(connectionSource, ShoppingList.class, true);
+            // TableUtils.dropTable(connectionSource, ListProduct.class, true);
+        } catch (SQLException e) {
+            Log.e(DatabaseHelper.class.getName(), "Unable to upgrade database");
+        }
     }
 
     public Dao<Product, Integer> getProductDao() throws SQLException {
-	if (productDao == null) {
-	    productDao = getDao(Product.class);
-	}
-	return productDao;
+        if (productDao == null) {
+            productDao = getDao(Product.class);
+        }
+        return productDao;
     }
 
     public Dao<ShoppingList, Integer> getShoppingListDao() throws SQLException {
-	if (listDao == null) {
-	    listDao = getDao(ShoppingList.class);
-	}
-	return listDao;
+        if (listDao == null) {
+            listDao = getDao(ShoppingList.class);
+        }
+        return listDao;
     }
 
     public Dao<ListProduct, Integer> getListProductDao() throws SQLException {
-	if (listProductDao == null) {
-	    listProductDao = getDao(ListProduct.class);
-	}
-	return listProductDao;
+        if (listProductDao == null) {
+            listProductDao = getDao(ListProduct.class);
+        }
+        return listProductDao;
     }
 
 }

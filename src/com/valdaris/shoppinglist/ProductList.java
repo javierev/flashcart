@@ -44,7 +44,7 @@ import com.valdaris.shoppinglist.data.model.Product;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public class ProductList extends OrmLiteBaseActivity<DatabaseHelper> {
 
@@ -53,105 +53,101 @@ public class ProductList extends OrmLiteBaseActivity<DatabaseHelper> {
     private static final int INSERT_ID = Menu.FIRST;
     private static final int ACTIVITY_CREATE = 0;
 
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-	super.onCreate(savedInstanceState);
-	setContentView(R.layout.product_list);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.product_list);
 
-	listView = (ListView) findViewById(R.id.productList);
+        listView = (ListView) findViewById(R.id.productList);
 
-	listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
-	    @Override
-	    public boolean onItemLongClick(AdapterView<?> adapterView, View view,
-		    int i, long l) {
-		Product product = (Product) listView.getAdapter().getItem(i);
-		Log.i(ProductList.class.getName(), "Product selected: " + product.getName());
-		ProductEdit.callMe(ProductList.this, product.getId());
-		return true;
-	    }
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView,
+                    View view, int i, long l) {
+                Product product = (Product) listView.getAdapter().getItem(i);
+                Log.i(ProductList.class.getName(), "Product selected: "
+                        + product.getName());
+                ProductEdit.callMe(ProductList.this, product.getId());
+                return true;
+            }
 
+        });
 
-	});
-
-	registerForContextMenu(listView);
+        registerForContextMenu(listView);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-	super.onCreateOptionsMenu(menu);
-	menu.add(0, INSERT_ID, 0, R.string.menu_insert_product);
-	return true;
+        super.onCreateOptionsMenu(menu);
+        menu.add(0, INSERT_ID, 0, R.string.menu_insert_product);
+        return true;
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-	switch(item.getItemId()) {
-	case INSERT_ID:
-	    createProduct();
-	    return true;
-	}
-	return super.onMenuItemSelected(featureId, item);
+        switch (item.getItemId()) {
+        case INSERT_ID:
+            createProduct();
+            return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
     }
 
     private void createProduct() {
-	Intent i = new Intent(this, ProductEdit.class);
-	startActivityForResult(i, ACTIVITY_CREATE);
+        Intent i = new Intent(this, ProductEdit.class);
+        startActivityForResult(i, ACTIVITY_CREATE);
     }
-
 
     @Override
     protected void onResume() {
-	super.onResume();
-	try {
-	    fillList();
-	} catch (SQLException e) {
-	    throw new RuntimeException(e);
-	}
+        super.onResume();
+        try {
+            fillList();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-
-
     private void fillList() throws SQLException {
-	Log.i(ProductList.class.getName(), "Showing product list");
-	Dao<Product, Integer> dao = getHelper().getProductDao();
-	QueryBuilder<Product, Integer> builder = dao.queryBuilder();
-	builder.orderBy(Product.NAME_FIELD_NAME, true).limit(30);
-	List<Product> list = dao.query(builder.prepare());
-	ArrayAdapter<Product> arrayAdapter = new ProductsAdapter(this, R.layout.product_row, list);
-	listView.setAdapter(arrayAdapter);
+        Log.i(ProductList.class.getName(), "Showing product list");
+        Dao<Product, Integer> dao = getHelper().getProductDao();
+        QueryBuilder<Product, Integer> builder = dao.queryBuilder();
+        builder.orderBy(Product.NAME_FIELD_NAME, true).limit(30);
+        List<Product> list = dao.query(builder.prepare());
+        ArrayAdapter<Product> arrayAdapter = new ProductsAdapter(this,
+                R.layout.product_row, list);
+        listView.setAdapter(arrayAdapter);
     }
 
     private class ProductsAdapter extends ArrayAdapter<Product> {
 
-	public ProductsAdapter(Context context, int textViewResourceId,
-		List<Product> objects) {
-	    super(context, textViewResourceId, objects);
-	}
+        public ProductsAdapter(Context context, int textViewResourceId,
+                List<Product> objects) {
+            super(context, textViewResourceId, objects);
+        }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
 
-	    View v = convertView;
-	    if (v == null) {
-		LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		v = vi.inflate(R.layout.product_row, null);
-	    }
+            View v = convertView;
+            if (v == null) {
+                LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                v = vi.inflate(R.layout.product_row, null);
+            }
 
-	    Product product = getItem(position);
+            Product product = getItem(position);
 
-	    fillText(v, R.id.productName, product.getName());
+            fillText(v, R.id.productName, product.getName());
 
-	    return v;
-	}
+            return v;
+        }
 
-	private void fillText(View v, int id, String text) {
-	    TextView textView = (TextView) v.findViewById(id);
-	    textView.setText(text == null ? "" : text);
-	}
+        private void fillText(View v, int id, String text) {
+            TextView textView = (TextView) v.findViewById(id);
+            textView.setText(text == null ? "" : text);
+        }
 
     }
 }

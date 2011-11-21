@@ -30,65 +30,73 @@ import com.valdaris.shoppinglist.data.model.ShoppingList;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public class DataHandler implements IDataHandler {
 
     DatabaseHelper helper;
 
     public DataHandler(DatabaseHelper helper) {
-	this.helper = helper;
+        this.helper = helper;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see com.valdaris.shoppinglist.data.IDataHandler#getLists()
      */
     @Override
     public List<ShoppingList> getLists() {
 
-	Dao<ShoppingList, Integer> dao;
-	try {
-	    dao = helper.getShoppingListDao();
-	    QueryBuilder<ShoppingList, Integer> builder = dao.queryBuilder();
-	    builder.orderBy(ShoppingList.DATA_CREATION_FIELD_NAME, false);
-	    List<ShoppingList> list = dao.query(builder.prepare());
-	    return list;
-	} catch (SQLException e) {
-	    throw new RuntimeException(e);
-	}
+        Dao<ShoppingList, Integer> dao;
+        try {
+            dao = helper.getShoppingListDao();
+            QueryBuilder<ShoppingList, Integer> builder = dao.queryBuilder();
+            builder.orderBy(ShoppingList.DATA_CREATION_FIELD_NAME, false);
+            List<ShoppingList> list = dao.query(builder.prepare());
+            return list;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    /* (non-Javadoc)
-     * @see com.valdaris.shoppinglist.data.IDataHandler#save(com.valdaris.shoppinglist.data.ShoppingList)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.valdaris.shoppinglist.data.IDataHandler#save(com.valdaris.shoppinglist
+     * .data.ShoppingList)
      */
     @Override
     public void create(ShoppingList list) {
-	try {
-	    Dao<ShoppingList, Integer> dao = helper.getShoppingListDao();
-	    dao.create(list);
-	} catch (SQLException e) {
-	    throw new RuntimeException(e);
-	}
+        try {
+            Dao<ShoppingList, Integer> dao = helper.getShoppingListDao();
+            dao.create(list);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    /* (non-Javadoc)
-     * @see com.valdaris.shoppinglist.data.IDataHandler#getListProducts(com.valdaris.shoppinglist.data.ShoppingList)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.valdaris.shoppinglist.data.IDataHandler#getListProducts(com.valdaris
+     * .shoppinglist.data.ShoppingList)
      */
     @Override
     public List<ListProduct> getListProducts(ShoppingList list) {
-	try {
-	    Dao<ListProduct, Integer> dao = helper.getListProductDao();
-	    QueryBuilder<ListProduct, Integer> builder = dao.queryBuilder();
-	    Where<ListProduct, Integer> where = builder.where();
-	    where.eq(ListProduct.LIST_ID_FIELD, list);
-	    builder.setWhere(where);
-	    List<ListProduct> products = builder.query();
-	    return products;
-	} catch (SQLException e) {
-	    throw new RuntimeException(e);
-	}
+        try {
+            Dao<ListProduct, Integer> dao = helper.getListProductDao();
+            QueryBuilder<ListProduct, Integer> builder = dao.queryBuilder();
+            Where<ListProduct, Integer> where = builder.where();
+            where.eq(ListProduct.LIST_ID_FIELD, list);
+            builder.setWhere(where);
+            List<ListProduct> products = builder.query();
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-
 
 }
