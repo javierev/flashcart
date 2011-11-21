@@ -30,7 +30,7 @@ import com.valdaris.shoppinglist.data.ShoppingList;
 public interface IFlashListView {
 
     /**
-     * Fill the UI list with the given String List.
+     * Fill the UI list with the given shopping List.
      * @param list
      */
     public void fillList(List<ShoppingList> list);
