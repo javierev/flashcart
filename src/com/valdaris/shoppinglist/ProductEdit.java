@@ -31,7 +31,7 @@ import android.widget.EditText;
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.j256.ormlite.dao.Dao;
 import com.valdaris.shoppinglist.data.DatabaseHelper;
-import com.valdaris.shoppinglist.data.Product;
+import com.valdaris.shoppinglist.data.model.Product;
 
 /**
  * @author Javier Estévez

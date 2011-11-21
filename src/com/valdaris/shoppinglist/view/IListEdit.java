@@ -21,7 +21,7 @@ package com.valdaris.shoppinglist.view;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.data.ListProduct;
+import com.valdaris.shoppinglist.data.model.ListProduct;
 
 /**
  * @author Javier Estévez

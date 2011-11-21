@@ -25,6 +25,8 @@ import java.util.List;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
+import com.valdaris.shoppinglist.data.model.ListProduct;
+import com.valdaris.shoppinglist.data.model.ShoppingList;
 
 /**
  * @author Javier Estévez

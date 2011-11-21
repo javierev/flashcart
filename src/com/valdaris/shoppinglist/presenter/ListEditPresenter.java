@@ -22,13 +22,13 @@ package com.valdaris.shoppinglist.presenter;
 import java.util.List;
 
 import com.valdaris.shoppinglist.data.IDataHandler;
-import com.valdaris.shoppinglist.data.ListProduct;
-import com.valdaris.shoppinglist.data.ShoppingList;
+import com.valdaris.shoppinglist.data.model.ListProduct;
+import com.valdaris.shoppinglist.data.model.ShoppingList;
 import com.valdaris.shoppinglist.view.IListEdit;
 
 /**
  * @author Javier Estévez
- *
+ * 
  */
 public class ListEditPresenter {
 
@@ -36,18 +36,18 @@ public class ListEditPresenter {
     IDataHandler dataHandler;
 
     public ListEditPresenter(IListEdit view, IDataHandler dataHandler) {
-	this.view = view;
-	this.dataHandler = dataHandler;
+        this.view = view;
+        this.dataHandler = dataHandler;
     }
 
     public void fillList(int listId) {
 
-	ShoppingList list = new ShoppingList();
-	list.setId(listId);
+        ShoppingList list = new ShoppingList();
+        list.setId(listId);
 
-	List<ListProduct> products = dataHandler.getListProducts(list);
+        List<ListProduct> products = dataHandler.getListProducts(list);
 
-	view.fillList(products);
+        view.fillList(products);
     }
 
 }
