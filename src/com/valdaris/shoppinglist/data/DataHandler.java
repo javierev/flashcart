@@ -99,4 +99,23 @@ public class DataHandler implements IDataHandler {
         }
     }
 
+    @Override
+    public void setListProducts(ShoppingList list, List<ListProduct> products) {
+        try {
+            Dao<ListProduct, Integer> dao = helper.getListProductDao();
+            for (ListProduct p : products) {
+                boolean update = p.getList() != null
+                        && p.getList().getId() == list.getId();
+                p.setList(list);
+                if (update) {
+                    dao.update(p);
+                } else {
+                    dao.create(p);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -36,4 +36,11 @@ public interface IListEdit {
      */
     public void fillList(List<ListProduct> products);
 
+    /**
+     * Get all products from the UI list.
+     * 
+     * @return
+     */
+    public List<ListProduct> getProducts();
+
 }

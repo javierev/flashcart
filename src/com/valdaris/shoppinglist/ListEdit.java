@@ -19,6 +19,7 @@
  */
 package com.valdaris.shoppinglist;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -28,7 +29,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +39,7 @@ import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
 import com.valdaris.shoppinglist.data.DataHandler;
 import com.valdaris.shoppinglist.data.DatabaseHelper;
 import com.valdaris.shoppinglist.data.model.ListProduct;
+import com.valdaris.shoppinglist.data.model.Product;
 import com.valdaris.shoppinglist.presenter.ListEditPresenter;
 import com.valdaris.shoppinglist.view.IListEdit;
 
@@ -49,7 +53,7 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
     private static final String LIST_ID = "listId";
 
     private ListView listView;
-    // private Button saveButton;
+    private Button saveButton;
 
     private ListEditPresenter presenter;
 
@@ -61,6 +65,15 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
         setContentView(R.layout.list_edit);
 
         listView = (ListView) findViewById(R.id.edit_product_list);
+
+        saveButton = (Button) findViewById(R.id.saveList);
+        saveButton.setOnClickListener(new AdapterView.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                presenter.saveList();
+            }
+        });
 
     }
 
@@ -91,6 +104,25 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
         ArrayAdapter<ListProduct> arrayAdapter = new ListProductAdapter(this,
                 R.layout.list_edit_row, products);
         listView.setAdapter(arrayAdapter);
+    }
+
+    @Override
+    public List<ListProduct> getProducts() {
+        List<ListProduct> list = new ArrayList<ListProduct>();
+        int productCount = listView.getAdapter().getCount();
+        for (int i = 0; i < productCount; i++) {
+            View v = listView.getAdapter().getView(i, null, null);
+            TextView text = (TextView) v.findViewById(R.id.edit_product_list);
+            String productName = text.getText().toString();
+            ListProduct lp = new ListProduct();
+            Product p = new Product();
+            p.setName(productName);
+            lp.setProduct(p);
+            lp.setAmount(1);
+            lp.setBought(false);
+            list.add(lp);
+        }
+        return list;
     }
 
     private class ListProductAdapter extends ArrayAdapter<ListProduct> {

@@ -54,4 +54,14 @@ public interface IDataHandler {
      */
     public List<ListProduct> getListProducts(ShoppingList list);
 
+    /**
+     * Saves all products in list.
+     * 
+     * @param list
+     *            the shopping list
+     * @param products
+     *            list of products to attach to the shopping list.
+     */
+    public void setListProducts(ShoppingList list, List<ListProduct> products);
+
 }

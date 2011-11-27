@@ -34,20 +34,29 @@ public class ListEditPresenter {
 
     IListEdit view;
     IDataHandler dataHandler;
+    private ShoppingList list;
 
     public ListEditPresenter(IListEdit view, IDataHandler dataHandler) {
         this.view = view;
         this.dataHandler = dataHandler;
+        this.list = new ShoppingList();
     }
 
     public void fillList(int listId) {
 
-        ShoppingList list = new ShoppingList();
         list.setId(listId);
 
         List<ListProduct> products = dataHandler.getListProducts(list);
 
         view.fillList(products);
+    }
+
+    public void saveList() {
+
+        List<ListProduct> products = view.getProducts();
+
+        dataHandler.setListProducts(list, products);
+
     }
 
 }
