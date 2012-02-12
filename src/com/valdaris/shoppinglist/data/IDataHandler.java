@@ -22,6 +22,7 @@ package com.valdaris.shoppinglist.data;
 import java.util.List;
 
 import com.valdaris.shoppinglist.data.model.ListProduct;
+import com.valdaris.shoppinglist.data.model.Product;
 import com.valdaris.shoppinglist.data.model.ShoppingList;
 
 /**
@@ -63,5 +64,12 @@ public interface IDataHandler {
      *            list of products to attach to the shopping list.
      */
     public void setListProducts(ShoppingList list, List<ListProduct> products);
+    
+    /**
+     * Obtains a list of products with the given name or containing it.
+     * @param name the name of the products to be found.
+     * @return list of products.
+     */
+    public List<Product> findProductsByName(String name);
 
 }

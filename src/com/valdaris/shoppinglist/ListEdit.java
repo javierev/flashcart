@@ -54,6 +54,7 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
 
     private ListView listView;
     private Button saveButton;
+    private Button addProductButton;
 
     private ListEditPresenter presenter;
 
@@ -72,6 +73,16 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
             @Override
             public void onClick(View arg0) {
                 presenter.saveList();
+            }
+        });
+        
+        addProductButton = (Button) findViewById(R.id.addProductButton);
+        addProductButton.setOnClickListener(new AdapterView.OnClickListener() {
+
+            @Override
+            public void onClick(View arg1) {
+                Log.i(ListEdit.class.getName(), "Adding a product in list id "
+                        + getListId());
             }
         });
 

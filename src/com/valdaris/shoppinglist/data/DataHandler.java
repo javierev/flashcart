@@ -26,6 +26,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 import com.valdaris.shoppinglist.data.model.ListProduct;
+import com.valdaris.shoppinglist.data.model.Product;
 import com.valdaris.shoppinglist.data.model.ShoppingList;
 
 /**
@@ -113,6 +114,22 @@ public class DataHandler implements IDataHandler {
                     dao.create(p);
                 }
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Product> findProductsByName(String name) {
+        try {
+            String searchStr = "%" + name + "%";
+            Dao<Product, Integer> dao = helper.getProductDao();
+            QueryBuilder<Product, Integer> builder = dao.queryBuilder();
+            Where<Product, Integer> where = builder.where();
+            where.like(Product.NAME_FIELD_NAME, searchStr);
+            builder.setWhere(where);
+            List<Product> products = builder.query();
+            return products;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
