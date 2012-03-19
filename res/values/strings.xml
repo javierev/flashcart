@@ -4,6 +4,7 @@
     <string name="menu_insert_product">Add Product</string>
     <string name="menu_create_list">New List</string>
     <string name="product_name">Product Name</string>
+    <string name="quantity">Quantity</string>
     <string name="save">Save</string>
     <string name="status_empty">Empty List</string>
     <string name="status_incomplete">Incomplete</string>
