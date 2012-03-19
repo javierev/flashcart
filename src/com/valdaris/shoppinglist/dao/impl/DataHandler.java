@@ -121,7 +121,7 @@ public class DataHandler implements IDataHandler {
         }
     }
 
-    @Override
+    //TODO move to the correct DAO
     public List<Product> findProductsByName(String name) {
         try {
             Dao<Product, Integer> dao = helper.getProductDao();

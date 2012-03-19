@@ -129,7 +129,7 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
             Product p = new Product();
             p.setName(productName);
             lp.setProduct(p);
-            lp.setAmount(1);
+            lp.setAmount(1.0);
             lp.setBought(false);
             list.add(lp);
         }
