@@ -21,7 +21,7 @@ package com.valdaris.shoppinglist.view;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.data.model.ListProduct;
+import com.valdaris.shoppinglist.model.ListItem;
 
 /**
  * @author Javier Estévez
@@ -34,13 +34,13 @@ public interface IListEdit {
      * 
      * @param products
      */
-    public void fillList(List<ListProduct> products);
+    public void fillList(List<ListItem> products);
 
     /**
      * Get all products from the UI list.
      * 
      * @return
      */
-    public List<ListProduct> getProducts();
+    public List<ListItem> getProducts();
 
 }

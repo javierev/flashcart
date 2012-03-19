@@ -1,7 +1,7 @@
 /**
  * This file is part of Flash Cart.
  *
- * Copyright (C) 2011 Javier Estévez
+ * Copyright (C) 2012 Javier Estévez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -17,31 +17,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.valdaris.shoppinglist.view;
+package com.valdaris.shoppinglist.dao;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.model.ShoppingList;
+import com.valdaris.shoppinglist.model.ListItem;
+import com.valdaris.shoppinglist.model.Product;
 
-/**
- * @author Javier Estévez
- * 
- */
-public interface IFlashListView {
+public interface IListItemDao {
 
     /**
-     * Fill the UI list with the given shopping List.
+     * Obtains a list of products with the given name.
      * 
-     * @param list
+     * @param name
+     *            the name of the products to be found.
+     * @return list of products.
      */
-    public void fillList(List<ShoppingList> list);
+    public List<Product> findProductsByName(String name);
 
     /**
-     * Get list item from the given position
+     * Saves the list item.
      * 
-     * @param pos
+     * @param listItem
+     */
+    public void saveOrUpdate(ListItem listItem);
+
+    /**
+     * Gets the list item with the given id.
+     * 
+     * @param id
      * @return
      */
-    public String getListItem(int pos);
+    public ListItem getListItem(Integer id);
 
 }

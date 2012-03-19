@@ -21,10 +21,10 @@ package com.valdaris.shoppinglist.presenter;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.data.IDataHandler;
-import com.valdaris.shoppinglist.data.model.ListProduct;
-import com.valdaris.shoppinglist.data.model.Product;
-import com.valdaris.shoppinglist.data.model.ShoppingList;
+import com.valdaris.shoppinglist.dao.IDataHandler;
+import com.valdaris.shoppinglist.model.ListItem;
+import com.valdaris.shoppinglist.model.Product;
+import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.view.IListEdit;
 
 /**
@@ -47,20 +47,20 @@ public class ListEditPresenter {
 
         list.setId(listId);
 
-        List<ListProduct> products = dataHandler.getListProducts(list);
+        List<ListItem> products = dataHandler.getListProducts(list);
 
         view.fillList(products);
     }
 
     public void saveList() {
 
-        List<ListProduct> products = view.getProducts();
+        List<ListItem> products = view.getProducts();
 
         dataHandler.setListProducts(list, products);
 
     }
     
-    public void addProduct(ListProduct product) {
+    public void addProduct(ListItem product) {
         
     }
     

@@ -36,10 +36,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.valdaris.shoppinglist.data.DataHandler;
-import com.valdaris.shoppinglist.data.DatabaseHelper;
-import com.valdaris.shoppinglist.data.model.ListProduct;
-import com.valdaris.shoppinglist.data.model.Product;
+import com.valdaris.shoppinglist.dao.DatabaseHelper;
+import com.valdaris.shoppinglist.dao.impl.DataHandler;
+import com.valdaris.shoppinglist.model.ListItem;
+import com.valdaris.shoppinglist.model.Product;
 import com.valdaris.shoppinglist.presenter.ListEditPresenter;
 import com.valdaris.shoppinglist.view.IListEdit;
 
@@ -109,23 +109,23 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
      * @see com.valdaris.shoppinglist.view.IListEdit#fillList(java.util.List)
      */
     @Override
-    public void fillList(List<ListProduct> products) {
+    public void fillList(List<ListItem> products) {
         Log.i(ListEdit.class.getName(), "Showing products in list id "
                 + getListId());
-        ArrayAdapter<ListProduct> arrayAdapter = new ListProductAdapter(this,
+        ArrayAdapter<ListItem> arrayAdapter = new ListProductAdapter(this,
                 R.layout.list_edit_row, products);
         listView.setAdapter(arrayAdapter);
     }
 
     @Override
-    public List<ListProduct> getProducts() {
-        List<ListProduct> list = new ArrayList<ListProduct>();
+    public List<ListItem> getProducts() {
+        List<ListItem> list = new ArrayList<ListItem>();
         int productCount = listView.getAdapter().getCount();
         for (int i = 0; i < productCount; i++) {
             View v = listView.getAdapter().getView(i, null, null);
             TextView text = (TextView) v.findViewById(R.id.edit_product_list);
             String productName = text.getText().toString();
-            ListProduct lp = new ListProduct();
+            ListItem lp = new ListItem();
             Product p = new Product();
             p.setName(productName);
             lp.setProduct(p);
@@ -136,10 +136,10 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
         return list;
     }
 
-    private class ListProductAdapter extends ArrayAdapter<ListProduct> {
+    private class ListProductAdapter extends ArrayAdapter<ListItem> {
 
         public ListProductAdapter(Context context, int textViewResourceId,
-                List<ListProduct> objects) {
+                List<ListItem> objects) {
             super(context, textViewResourceId, objects);
         }
 
@@ -151,7 +151,7 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
                 v = vi.inflate(R.layout.list_edit_row, null);
             }
 
-            ListProduct product = getItem(position);
+            ListItem product = getItem(position);
 
             TextView text = (TextView) v.findViewById(R.id.editProductList);
             text.setText(product.getProduct().getName());

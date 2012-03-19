@@ -17,31 +17,51 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.valdaris.shoppinglist.view;
+package com.valdaris.shoppinglist.dao;
 
 import java.util.List;
 
+import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.ShoppingList;
 
 /**
  * @author Javier Estévez
  * 
  */
-public interface IFlashListView {
+public interface IDataHandler {
 
     /**
-     * Fill the UI list with the given shopping List.
+     * Obtains a list of all shopping lists.
+     * 
+     * @return list of shopping lists.
+     */
+    public List<ShoppingList> getLists();
+
+    /**
+     * Saves a new shopping list on the Data Base.
      * 
      * @param list
+     *            shopping list
      */
-    public void fillList(List<ShoppingList> list);
+    public void create(ShoppingList list);
 
     /**
-     * Get list item from the given position
+     * Obtains all products from a given shopping list.
      * 
-     * @param pos
-     * @return
+     * @param list
+     *            the shopping list.
+     * @return list of products.
      */
-    public String getListItem(int pos);
+    public List<ListItem> getListProducts(ShoppingList list);
+
+    /**
+     * Saves all products in list.
+     * 
+     * @param list
+     *            the shopping list
+     * @param products
+     *            list of products to attach to the shopping list.
+     */
+    public void setListProducts(ShoppingList list, List<ListItem> products);
 
 }

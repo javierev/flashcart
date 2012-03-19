@@ -22,8 +22,8 @@ package com.valdaris.shoppinglist.presenter;
 import java.util.Date;
 import java.util.List;
 
-import com.valdaris.shoppinglist.data.IDataHandler;
-import com.valdaris.shoppinglist.data.model.ShoppingList;
+import com.valdaris.shoppinglist.dao.IDataHandler;
+import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.view.IFlashListView;
 
 /**

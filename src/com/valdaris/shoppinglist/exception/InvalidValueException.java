@@ -1,7 +1,7 @@
 /**
  * This file is part of Flash Cart.
  *
- * Copyright (C) 2011 Javier Estévez
+ * Copyright (C) 2012 Javier Estévez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -17,31 +17,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.valdaris.shoppinglist.view;
-
-import java.util.List;
-
-import com.valdaris.shoppinglist.model.ShoppingList;
+package com.valdaris.shoppinglist.exception;
 
 /**
- * @author Javier Estévez
+ * This class should be used when the user enters an invalid
+ * value in a field. Like a letter when a number is expected.
  * 
+ * @author Javier Estévez
+ *
  */
-public interface IFlashListView {
+public class InvalidValueException extends RuntimeException {
+    
+    private static final long serialVersionUID = -1392538034453618446L;
 
-    /**
-     * Fill the UI list with the given shopping List.
-     * 
-     * @param list
-     */
-    public void fillList(List<ShoppingList> list);
-
-    /**
-     * Get list item from the given position
-     * 
-     * @param pos
-     * @return
-     */
-    public String getListItem(int pos);
+    public InvalidValueException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }

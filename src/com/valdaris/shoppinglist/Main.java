@@ -35,9 +35,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.valdaris.shoppinglist.data.DataHandler;
-import com.valdaris.shoppinglist.data.DatabaseHelper;
-import com.valdaris.shoppinglist.data.model.ShoppingList;
+import com.valdaris.shoppinglist.dao.DatabaseHelper;
+import com.valdaris.shoppinglist.dao.impl.DataHandler;
+import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.presenter.FlashListPresenter;
 import com.valdaris.shoppinglist.view.IFlashListView;
 
