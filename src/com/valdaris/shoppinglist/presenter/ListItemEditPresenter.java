@@ -31,34 +31,35 @@ import com.valdaris.shoppinglist.view.IListItemEditView;
 /**
  * 
  * @author Javier Estévez
- *
+ * 
  */
 public class ListItemEditPresenter {
 
     IListItemEditView view;
     IListItemDao listItemDao;
     ListItem listItem;
-    
-    private ListItemEditPresenter(IListItemEditView view, IListItemDao listItemDao) {
+
+    private ListItemEditPresenter(IListItemEditView view,
+            IListItemDao listItemDao) {
         this.view = view;
         this.listItemDao = listItemDao;
     }
 
-    public ListItemEditPresenter(IListItemEditView view, IListItemDao listItemDao,
-            ShoppingList list) {
+    public ListItemEditPresenter(IListItemEditView view,
+            IListItemDao listItemDao, ShoppingList list) {
         this(view, listItemDao);
         this.listItem = new ListItem();
         listItem.setBought(false);
         listItem.setList(list);
     }
 
-    public ListItemEditPresenter(IListItemEditView view, IListItemDao listItemDao,
-            ListItem listItem) {
+    public ListItemEditPresenter(IListItemEditView view,
+            IListItemDao listItemDao, ListItem listItem) {
         this(view, listItemDao);
         this.listItem = listItem;
-            view.setProductName(listItem.getProduct().getName());
-            view.setAmount(listItem.getAmount().toString());
-            view.setUnit(listItem.getUnit());
+        view.setProductName(listItem.getProduct().getName());
+        view.setAmount(listItem.getAmount().toString());
+        view.setUnit(listItem.getUnit());
     }
 
     public void saveListItem() throws InvalidValueException {
@@ -71,25 +72,29 @@ public class ListItemEditPresenter {
             throw new InvalidValueException(
                     "Quantity is supossed to be a number value!", e);
         }
-        
+
         listItem.setProduct(getProduct(productName));
         listItem.setAmount(amount);
         listItem.setUnit(unit);
-        
+
         listItemDao.saveOrUpdate(listItem);
 
     }
-    
+
+    public ListItem getListItem() {
+        return listItem;
+    }
+
     /**
-     * Finds a product from database by its name. If none found, 
-     * creates a new one.
+     * Finds a product from database by its name. If none found, creates a new
+     * one.
      * 
      * @return product
      */
     private Product getProduct(String productName) {
-        
+
         Product product;
-        
+
         List<Product> products = listItemDao.findProductsByName(productName);
         if (products.size() > 0) {
             product = products.get(0);
@@ -97,9 +102,9 @@ public class ListItemEditPresenter {
             product = new Product();
             product.setName(productName);
         }
-        
+
         return product;
-        
+
     }
 
 }
