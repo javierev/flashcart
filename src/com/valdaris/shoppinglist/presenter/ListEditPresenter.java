@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.valdaris.shoppinglist.dao.IDataHandler;
 import com.valdaris.shoppinglist.model.ListItem;
-import com.valdaris.shoppinglist.model.Product;
 import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.view.IListEdit;
 
@@ -64,19 +63,6 @@ public class ListEditPresenter {
         
     }
     
-    /**
-     * Finds a product containing the given name or returns null if 
-     * it does'nt exist.
-     * @param name the name of the product to be found.
-     * @return the product if it exists, null otherwise.
-     */
-    public Product findProductByName(String name) {
-        List<Product> products = dataHandler.findProductsByName(name);
-        if (products.size()>0) {
-            return products.get(0);
-        } else {
-            return null;
-        }
-    }
+
 
 }
