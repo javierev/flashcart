@@ -24,14 +24,10 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 /**
  * @author Javier Estévez
  * 
  */
-@DatabaseTable
 public class ShoppingList implements Serializable {
 
     private static final long serialVersionUID = -2657829638082397222L;
@@ -46,19 +42,14 @@ public class ShoppingList implements Serializable {
     public static final char COMPLETE = 'c';
     public static final char FINISHED = 'f';
 
-    @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(columnName = DATA_CREATION_FIELD_NAME)
     private Date creationDate;
 
-    @DatabaseField(columnName = DATA_BUY_FIELD_NAME)
     private Date buyDate;
 
-    @DatabaseField(columnName = STATUS_FIELD_NAME)
     private char status;
 
-    @DatabaseField(columnName = LIST_NAME, canBeNull = true)
     private String name;
 
     public Integer getId() {

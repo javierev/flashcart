@@ -21,8 +21,6 @@ package com.valdaris.shoppinglist.model;
 
 import java.io.Serializable;
 
-import com.j256.ormlite.field.DatabaseField;
-
 /**
  * @author Javier Estévez
  * 
@@ -37,22 +35,16 @@ public class ListItem implements Serializable {
     public static final String BOUGHT_FIELD = "bought";
     public static final String UNIT = "unit";
 
-    @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(foreign = true, columnName = LIST_ID_FIELD)
     private ShoppingList list;
 
-    @DatabaseField(foreign = true, columnName = PRODUCT_ID_FIELD)
     private Product product;
 
-    @DatabaseField(columnName = AMOUNT_FIELD)
     private Double amount;
 
-    @DatabaseField(columnName = BOUGHT_FIELD)
     private Boolean bought;
 
-    @DatabaseField(columnName = UNIT)
     private String unit;
 
     public ListItem() {
