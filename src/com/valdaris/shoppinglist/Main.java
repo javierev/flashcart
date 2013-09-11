@@ -21,6 +21,7 @@ package com.valdaris.shoppinglist;
 
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,9 +35,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.valdaris.shoppinglist.dao.DatabaseHelper;
-import com.valdaris.shoppinglist.dao.impl.DataHandler;
 import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.presenter.FlashListPresenter;
 import com.valdaris.shoppinglist.view.IFlashListView;
@@ -45,7 +43,7 @@ import com.valdaris.shoppinglist.view.IFlashListView;
  * @author Javier Estévez
  * 
  */
-public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
+public class Main extends Activity implements
         IFlashListView {
 
     private ListView listView;
@@ -59,9 +57,8 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        DatabaseHelper helper = getHelper();
 
-        presenter = new FlashListPresenter(this, new DataHandler(helper));
+        presenter = new FlashListPresenter();
 
         setContentView(R.layout.main);
 
@@ -112,7 +109,7 @@ public class Main extends OrmLiteBaseActivity<DatabaseHelper> implements
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.fillList();
+        fillList(presenter.getLists());
     }
 
     private class ShoppingListAdapter extends ArrayAdapter<ShoppingList> {
