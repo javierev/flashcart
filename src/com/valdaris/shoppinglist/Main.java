@@ -35,6 +35,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.valdaris.shoppinglist.dao.impl.ShoppingListDaoImpl;
 import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.presenter.FlashListPresenter;
 import com.valdaris.shoppinglist.view.IFlashListView;
@@ -62,7 +63,7 @@ public class Main extends Activity implements
         
         instance = this;
 
-        presenter = new FlashListPresenter();
+        presenter = new FlashListPresenter(new ShoppingListDaoImpl());
 
         setContentView(R.layout.main);
 

@@ -107,4 +107,10 @@ public class ShoppingList implements Serializable {
         return creationDate == null ? "" : dateFormat.format(creationDate);
     }
 
+    public void setStatus(String status) {
+        if (status != null && status.length() == 1) {
+            this.status = status.charAt(0);
+        }
+    }
+
 }

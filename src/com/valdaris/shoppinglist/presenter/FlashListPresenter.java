@@ -32,6 +32,10 @@ import com.valdaris.shoppinglist.model.ShoppingList;
 public class FlashListPresenter {
 
     IDataHandler dataHandler;
+    
+    public FlashListPresenter(IDataHandler dataHandler) {
+        this.dataHandler = dataHandler;
+    }
 
     /**
      * Gets shopping lists from DB
