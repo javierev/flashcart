@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.valdaris.shoppinglist.test.dao;
+package com.valdaris.shoppinglist.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;

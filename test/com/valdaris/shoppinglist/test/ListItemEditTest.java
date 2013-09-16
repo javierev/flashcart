@@ -24,10 +24,10 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import com.valdaris.shoppinglist.dao.ListItemDaoTest;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.presenter.ListItemEditPresenter;
-import com.valdaris.shoppinglist.test.dao.ListItemDaoTest;
 import com.valdaris.shoppinglist.test.view.ListItemEditViewTest;
 
 /**
