@@ -29,6 +29,9 @@ public class Product implements Serializable {
 
     private static final long serialVersionUID = -1935911318526069618L;
 
+    public static final String TABLE_NAME = "product";
+    
+    public static final String ID_FIELD_NAME = "id";
     public static final String NAME_FIELD_NAME = "name";
 
     private Integer id;

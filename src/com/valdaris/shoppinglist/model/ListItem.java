@@ -29,11 +29,14 @@ public class ListItem implements Serializable {
 
     private static final long serialVersionUID = 4922783195826653362L;
 
-    public static final String LIST_ID_FIELD = "list";
-    public static final String PRODUCT_ID_FIELD = "product";
+    public static final String TABLE_NAME = "list_item";
+    public static final String ID_FIELD_NAME = "id";
+    public static final String LIST_ID_FIELD = "list_id";
+    public static final String PRODUCT_ID_FIELD = "product_id";
     public static final String AMOUNT_FIELD = "amount";
     public static final String BOUGHT_FIELD = "bought";
     public static final String UNIT = "unit";
+
 
     private Integer id;
 

@@ -32,8 +32,11 @@ public class ShoppingList implements Serializable {
 
     private static final long serialVersionUID = -2657829638082397222L;
 
-    public static final String DATA_CREATION_FIELD_NAME = "cDate";
-    public static final String DATA_BUY_FIELD_NAME = "bDate";
+    public static final String TABLE_NAME = "shopping_list";
+    
+    public static final String ID_FIELD_NAME = "id";
+    public static final String DATA_CREATION_FIELD_NAME = "creation_date";
+    public static final String DATA_BUY_FIELD_NAME = "buy_date";
     public static final String STATUS_FIELD_NAME = "status";
     public static final String LIST_NAME = "name";
 

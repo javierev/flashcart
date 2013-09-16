@@ -52,11 +52,15 @@ public class Main extends Activity implements
     private static final int INSERT_ID = Menu.FIRST;
 
     private FlashListPresenter presenter;
+    
+    private static Main instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        
+        instance = this;
 
         presenter = new FlashListPresenter();
 
@@ -88,6 +92,10 @@ public class Main extends Activity implements
         });
 
         registerForContextMenu(listView);
+    }
+    
+    public static Context getContext() {
+        return instance.getApplicationContext();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
