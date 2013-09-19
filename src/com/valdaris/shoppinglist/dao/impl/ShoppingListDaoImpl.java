@@ -55,10 +55,16 @@ public class ShoppingListDaoImpl implements IDataHandler {
             list.setId(cursor.getInt(cursor
                     .getColumnIndex(ShoppingList.ID_FIELD_NAME)));
             try {
-                list.setCreationDate(FORMATTER.parse(cursor.getString(cursor
-                        .getColumnIndex(ShoppingList.DATA_CREATION_FIELD_NAME))));
-                list.setBuyDate(FORMATTER.parse(cursor.getString(cursor
-                        .getColumnIndex(ShoppingList.DATA_BUY_FIELD_NAME))));
+            	String date = cursor.getString(cursor
+                        .getColumnIndex(ShoppingList.DATA_CREATION_FIELD_NAME));
+            	if (date != null) {
+            		list.setCreationDate(FORMATTER.parse(date));
+            	}
+            	date = cursor.getString(cursor
+                        .getColumnIndex(ShoppingList.DATA_BUY_FIELD_NAME));
+            	if (date != null) {
+            		list.setBuyDate(FORMATTER.parse(date));
+            	}
             } catch (ParseException e) {
                 Log.e(TAG, "Error formatting date", e);
             }
