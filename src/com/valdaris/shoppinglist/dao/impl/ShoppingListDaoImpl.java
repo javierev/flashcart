@@ -25,7 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -81,7 +83,28 @@ public class ShoppingListDaoImpl implements IDataHandler {
 
     @Override
     public void create(ShoppingList list) {
-        // TODO Auto-generated method stub
+    	
+        ContentValues values = new ContentValues();
+        
+        
+        if (list.getCreationDate() != null) {
+        	values.put(ShoppingList.DATA_CREATION_FIELD_NAME, FORMATTER.format(list.getCreationDate()));
+        }
+        if (list.getBuyDate() != null) { 
+        	values.put(ShoppingList.DATA_BUY_FIELD_NAME, FORMATTER.format(list.getBuyDate()));
+        }
+        values.put(ShoppingList.LIST_NAME, list.getName());
+        values.put(ShoppingList.STATUS_FIELD_NAME, String.valueOf(list.getStatus()));
+
+        SQLiteDatabase db = new DatabaseHelper().getReadableDatabase();
+        try {
+        	db.insertOrThrow(ShoppingList.TABLE_NAME, null, values);
+        } catch (SQLException e) {
+        	Log.e(TAG, "Error on saving list", e);
+        	//TODO error message to user
+        } finally {
+        	db.close();
+        }
 
     }
 

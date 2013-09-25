@@ -51,7 +51,7 @@ public class ShoppingList implements Serializable {
 
     private Date buyDate;
 
-    private char status;
+    private char status = EMPTY;
 
     private String name;
 

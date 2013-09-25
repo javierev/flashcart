@@ -51,6 +51,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         
         String listItemSQL = CreationStatements.listItemTableCreationStatement();
         db.execSQL(listItemSQL);
+        
     }
 
     @Override
