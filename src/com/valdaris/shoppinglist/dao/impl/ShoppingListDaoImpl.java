@@ -102,6 +102,7 @@ public class ShoppingListDaoImpl implements IDataHandler {
         } catch (SQLException e) {
         	Log.e(TAG, "Error on saving list", e);
         	//TODO error message to user
+        	
         } finally {
         	db.close();
         }

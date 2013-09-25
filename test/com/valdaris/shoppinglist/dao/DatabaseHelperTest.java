@@ -40,7 +40,7 @@ public class DatabaseHelperTest {
                 "status VARCHAR(1), " + 
         		"name VARCHAR(10))";
         
-        Assert.assertEquals(sql, CreationStatements.shoppingListTableCreationStatement());
+        Assert.assertEquals(sql, CreationStatements.shoppingListTableCreationStatement()); 
         
     }
     
