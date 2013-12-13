@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import com.valdaris.shoppinglist.dao.IListItemDao;
+import com.valdaris.shoppinglist.dao.ListItemDao;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.Product;
 import com.valdaris.shoppinglist.model.ShoppingList;
@@ -34,7 +34,7 @@ import com.valdaris.shoppinglist.model.ShoppingList;
  * @author Javier Estévez
  * 
  */
-public class ListItemDaoTest implements IListItemDao {
+public class ListItemDaoTest implements ListItemDao {
 
     private HashMap<Integer, Product> products;
     private HashMap<Integer, ListItem> listItems;

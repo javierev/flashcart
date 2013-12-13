@@ -21,7 +21,7 @@ package com.valdaris.shoppinglist.presenter;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.dao.IListItemDao;
+import com.valdaris.shoppinglist.dao.ListItemDao;
 import com.valdaris.shoppinglist.exception.InvalidValueException;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.Product;
@@ -36,17 +36,17 @@ import com.valdaris.shoppinglist.view.IListItemEditView;
 public class ListItemEditPresenter {
 
     IListItemEditView view;
-    IListItemDao listItemDao;
+    ListItemDao listItemDao;
     ListItem listItem;
 
     private ListItemEditPresenter(IListItemEditView view,
-            IListItemDao listItemDao) {
+            ListItemDao listItemDao) {
         this.view = view;
         this.listItemDao = listItemDao;
     }
 
     public ListItemEditPresenter(IListItemEditView view,
-            IListItemDao listItemDao, ShoppingList list) {
+            ListItemDao listItemDao, ShoppingList list) {
         this(view, listItemDao);
         this.listItem = new ListItem();
         listItem.setBought(false);
@@ -54,7 +54,7 @@ public class ListItemEditPresenter {
     }
 
     public ListItemEditPresenter(IListItemEditView view,
-            IListItemDao listItemDao, ListItem listItem) {
+            ListItemDao listItemDao, ListItem listItem) {
         this(view, listItemDao);
         this.listItem = listItem;
         view.setProductName(listItem.getProduct().getName());

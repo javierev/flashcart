@@ -24,7 +24,7 @@ import java.util.List;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.Product;
 
-public interface IListItemDao {
+public interface ListItemDao {
 
     /**
      * Obtains a list of products with the given name.

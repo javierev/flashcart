@@ -22,7 +22,7 @@ package com.valdaris.shoppinglist.presenter;
 import java.util.Calendar;
 import java.util.List;
 
-import com.valdaris.shoppinglist.dao.IDataHandler;
+import com.valdaris.shoppinglist.dao.ShoppingListDao;
 import com.valdaris.shoppinglist.model.ShoppingList;
 
 /**
@@ -31,9 +31,9 @@ import com.valdaris.shoppinglist.model.ShoppingList;
  */
 public class FlashListPresenter {
 
-    IDataHandler dataHandler;
+    ShoppingListDao dataHandler;
     
-    public FlashListPresenter(IDataHandler dataHandler) {
+    public FlashListPresenter(ShoppingListDao dataHandler) {
         this.dataHandler = dataHandler;
     }
 

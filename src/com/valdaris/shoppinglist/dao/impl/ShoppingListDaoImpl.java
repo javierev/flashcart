@@ -32,12 +32,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.valdaris.shoppinglist.dao.DatabaseHelper;
-import com.valdaris.shoppinglist.dao.IDataHandler;
+import com.valdaris.shoppinglist.dao.ShoppingListDao;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.Product;
 import com.valdaris.shoppinglist.model.ShoppingList;
 
-public class ShoppingListDaoImpl implements IDataHandler {
+public class ShoppingListDaoImpl implements ShoppingListDao {
     
     private static final String TAG = ShoppingListDaoImpl.class.getCanonicalName();
 

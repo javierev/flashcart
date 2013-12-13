@@ -28,7 +28,7 @@ import com.valdaris.shoppinglist.model.ShoppingList;
  * @author Javier Estévez
  * 
  */
-public interface IDataHandler {
+public interface ShoppingListDao {
 
     /**
      * Obtains a list of all shopping lists.
