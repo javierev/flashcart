@@ -103,6 +103,14 @@ public class ListItem implements Serializable {
         this.bought = bought;
     }
 
+    public void setBought(String boughtStr) {
+    	if (boughtStr != null && boughtStr.equalsIgnoreCase("true")) {
+    		this.bought = true;
+    	} else {
+    		this.bought = false;
+    	}
+    }
+    
     public String getUnit() {
         return unit;
     }
