@@ -19,12 +19,11 @@
  */
 package com.valdaris.shoppinglist.presenter;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
-import com.valdaris.shoppinglist.dao.IDataHandler;
+import com.valdaris.shoppinglist.dao.ShoppingListDao;
 import com.valdaris.shoppinglist.model.ShoppingList;
-import com.valdaris.shoppinglist.view.IFlashListView;
 
 /**
  * @author Javier Estévez
@@ -32,20 +31,17 @@ import com.valdaris.shoppinglist.view.IFlashListView;
  */
 public class FlashListPresenter {
 
-    IFlashListView view;
-    IDataHandler dataHandler;
-
-    public FlashListPresenter(IFlashListView view, IDataHandler dataHandler) {
-        this.view = view;
+    ShoppingListDao dataHandler;
+    
+    public FlashListPresenter(ShoppingListDao dataHandler) {
         this.dataHandler = dataHandler;
     }
 
     /**
-     * Fills UI List
+     * Gets shopping lists from DB
      */
-    public void fillList() {
-        List<ShoppingList> list = dataHandler.getLists();
-        view.fillList(list);
+    public List<ShoppingList> getLists() {
+        return dataHandler.getLists();
     }
 
     /**
@@ -53,10 +49,9 @@ public class FlashListPresenter {
      */
     public void createList() {
         ShoppingList sList = new ShoppingList();
-        sList.setCreationDate(new Date());
+        sList.setCreationDate(Calendar.getInstance().getTime());
         sList.setStatus(ShoppingList.EMPTY);
         dataHandler.create(sList);
-        fillList();
     }
 
 }

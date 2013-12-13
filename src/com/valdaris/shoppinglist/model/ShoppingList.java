@@ -24,20 +24,19 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 /**
  * @author Javier Estévez
  * 
  */
-@DatabaseTable
 public class ShoppingList implements Serializable {
 
     private static final long serialVersionUID = -2657829638082397222L;
 
-    public static final String DATA_CREATION_FIELD_NAME = "cDate";
-    public static final String DATA_BUY_FIELD_NAME = "bDate";
+    public static final String TABLE_NAME = "shopping_list";
+    
+    public static final String ID_FIELD_NAME = "id";
+    public static final String DATA_CREATION_FIELD_NAME = "creation_date";
+    public static final String DATA_BUY_FIELD_NAME = "buy_date";
     public static final String STATUS_FIELD_NAME = "status";
     public static final String LIST_NAME = "name";
 
@@ -46,19 +45,14 @@ public class ShoppingList implements Serializable {
     public static final char COMPLETE = 'c';
     public static final char FINISHED = 'f';
 
-    @DatabaseField(generatedId = true)
     private Integer id;
 
-    @DatabaseField(columnName = DATA_CREATION_FIELD_NAME)
     private Date creationDate;
 
-    @DatabaseField(columnName = DATA_BUY_FIELD_NAME)
     private Date buyDate;
 
-    @DatabaseField(columnName = STATUS_FIELD_NAME)
-    private char status;
+    private char status = EMPTY;
 
-    @DatabaseField(columnName = LIST_NAME, canBeNull = true)
     private String name;
 
     public Integer getId() {
@@ -111,6 +105,12 @@ public class ShoppingList implements Serializable {
         DateFormat dateFormat = DateFormat.getDateTimeInstance(
                 DateFormat.DEFAULT, DateFormat.MEDIUM, currentLocale);
         return creationDate == null ? "" : dateFormat.format(creationDate);
+    }
+
+    public void setStatus(String status) {
+        if (status != null && status.length() == 1) {
+            this.status = status.charAt(0);
+        }
     }
 
 }

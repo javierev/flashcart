@@ -19,8 +19,7 @@
  */
 package com.valdaris.shoppinglist;
 
-import java.sql.SQLException;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,16 +27,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.Dao;
-import com.valdaris.shoppinglist.dao.DatabaseHelper;
 import com.valdaris.shoppinglist.model.Product;
 
 /**
  * @author Javier Estévez
  * 
  */
-public class ProductEdit extends OrmLiteBaseActivity<DatabaseHelper> {
+public class ProductEdit extends Activity {
 
     private static final String PRODUCT_ID = "productId";
 
@@ -57,28 +53,28 @@ public class ProductEdit extends OrmLiteBaseActivity<DatabaseHelper> {
 
             @Override
             public void onClick(View v) {
-                try {
-                    Product product = saveToObject();
-                    Dao<Product, Integer> dao = getHelper().getProductDao();
-                    boolean alreadyCreated = false;
-                    if (product.getId() != null) {
-                        Product dbProduct = dao.queryForId(product.getId());
-                        if (dbProduct != null) {
-                            product.setName(dbProduct.getName());
-                            dao.update(product);
-                            alreadyCreated = true;
-                        }
-                    }
-
-                    if (alreadyCreated) {
-                        finish();
-                    } else {
-                        dao.create(product);
-                        finish();
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                    Product product = saveToObject();
+//                    Dao<Product, Integer> dao = getHelper().getProductDao();
+//                    boolean alreadyCreated = false;
+//                    if (product.getId() != null) {
+//                        Product dbProduct = dao.queryForId(product.getId());
+//                        if (dbProduct != null) {
+//                            product.setName(dbProduct.getName());
+//                            dao.update(product);
+//                            alreadyCreated = true;
+//                        }
+//                    }
+//
+//                    if (alreadyCreated) {
+//                        finish();
+//                    } else {
+//                        dao.create(product);
+//                        finish();
+//                    }
+//                } catch (SQLException e) {
+//                    throw new RuntimeException(e);
+//                }
             }
         });
     }

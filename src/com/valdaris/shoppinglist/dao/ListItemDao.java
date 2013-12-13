@@ -1,7 +1,7 @@
 /**
  * This file is part of Flash Cart.
  *
- * Copyright (C) 2011 Javier Estévez
+ * Copyright (C) 2012 Javier Estévez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -22,29 +22,35 @@ package com.valdaris.shoppinglist.dao;
 import java.util.List;
 
 import com.valdaris.shoppinglist.model.ListItem;
+import com.valdaris.shoppinglist.model.Product;
 import com.valdaris.shoppinglist.model.ShoppingList;
 
-/**
- * @author Javier Estévez
- * 
- */
-public interface IDataHandler {
+public interface ListItemDao {
 
     /**
-     * Obtains a list of all shopping lists.
+     * Obtains a list of products with the given name.
      * 
-     * @return list of shopping lists.
+     * @param name
+     *            the name of the products to be found.
+     * @return list of products.
      */
-    public List<ShoppingList> getLists();
+    public List<Product> findProductsByName(String name);
 
     /**
-     * Saves a new shopping list on the Data Base.
+     * Saves the list item.
      * 
-     * @param list
-     *            shopping list
+     * @param listItem
      */
-    public void create(ShoppingList list);
+    public void saveOrUpdate(ListItem listItem);
 
+    /**
+     * Gets the list item with the given id.
+     * 
+     * @param id
+     * @return
+     */
+    public ListItem getListItem(Integer id);
+    
     /**
      * Obtains all products from a given shopping list.
      * 
@@ -52,16 +58,16 @@ public interface IDataHandler {
      *            the shopping list.
      * @return list of products.
      */
-    public List<ListItem> getListProducts(ShoppingList list);
+    public List<ListItem> getListItems(ShoppingList list);
 
     /**
      * Saves all products in list.
      * 
      * @param list
      *            the shopping list
-     * @param products
+     * @param items
      *            list of products to attach to the shopping list.
      */
-    public void setListProducts(ShoppingList list, List<ListItem> products);
+    public void setListItems(ShoppingList list, List<ListItem> items);
 
 }

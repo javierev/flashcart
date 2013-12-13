@@ -1,7 +1,7 @@
 /**
  * This file is part of Flash Cart.
  *
- * Copyright (C) 2011 Javier Estévez
+ * Copyright (C) 2013 Javier Estévez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -19,79 +19,45 @@
  */
 package com.valdaris.shoppinglist.dao;
 
-import java.sql.SQLException;
-
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+import android.database.sqlite.SQLiteOpenHelper;
 
-import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.support.ConnectionSource;
-import com.j256.ormlite.table.TableUtils;
-import com.valdaris.shoppinglist.model.ListItem;
-import com.valdaris.shoppinglist.model.Product;
-import com.valdaris.shoppinglist.model.ShoppingList;
+import com.valdaris.shoppinglist.Main;
 
 /**
- * @author Javier Estévez
+ * Database helper to be used on DAOs. It includes creation and upgrade.
  * 
+ * @author Javier Estévez
+ *
  */
-public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-
-    private static final String DATABASE_NAME = "shoppinglist.db";
-    private static final int DATABASE_VERSION = 1;
-
-    private Dao<Product, Integer> productDao;
-    private Dao<ShoppingList, Integer> listDao;
-    private Dao<ListItem, Integer> listProductDao;
-
-    public DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+public class DatabaseHelper extends SQLiteOpenHelper {
+    
+    private final static String DATABASE_NAME = "FLASH_CART";
+    private final static int DATABASE_VERSION = 1;
+    
+    
+    public DatabaseHelper() {
+        super(Main.getContext(), DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
-    public void onCreate(SQLiteDatabase arg0, ConnectionSource connectionSource) {
-        try {
-            TableUtils.createTable(connectionSource, Product.class);
-            TableUtils.createTable(connectionSource, ShoppingList.class);
-            TableUtils.createTable(connectionSource, ListItem.class);
-        } catch (SQLException e) {
-            Log.e(DatabaseHelper.class.getName(), "Unable to create database");
-        }
+    public void onCreate(SQLiteDatabase db) {
+        
+        String shoppingListSQL = CreationStatements.shoppingListTableCreationStatement();
+        db.execSQL(shoppingListSQL);
+        
+        String productSQL = CreationStatements.productTableCreationStatement();
+        db.execSQL(productSQL);
+        
+        String listItemSQL = CreationStatements.listItemTableCreationStatement();
+        db.execSQL(listItemSQL);
+        
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase database,
-            ConnectionSource connectionSource, int oldVersion, int newVersion) {
-        try {
-            TableUtils.dropTable(connectionSource, Product.class, true);
-            TableUtils.dropTable(connectionSource, ShoppingList.class, true);
-            // TableUtils.dropTable(connectionSource, ListProduct.class, true);
-        } catch (SQLException e) {
-            Log.e(DatabaseHelper.class.getName(), "Unable to upgrade database");
-        }
-    }
-
-    public Dao<Product, Integer> getProductDao() throws SQLException {
-        if (productDao == null) {
-            productDao = getDao(Product.class);
-        }
-        return productDao;
-    }
-
-    public Dao<ShoppingList, Integer> getShoppingListDao() throws SQLException {
-        if (listDao == null) {
-            listDao = getDao(ShoppingList.class);
-        }
-        return listDao;
-    }
-
-    public Dao<ListItem, Integer> getListProductDao() throws SQLException {
-        if (listProductDao == null) {
-            listProductDao = getDao(ListItem.class);
-        }
-        return listProductDao;
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

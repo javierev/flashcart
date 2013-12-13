@@ -21,8 +21,6 @@ package com.valdaris.shoppinglist.model;
 
 import java.io.Serializable;
 
-import com.j256.ormlite.field.DatabaseField;
-
 /**
  * @author Javier Estévez
  * 
@@ -31,28 +29,25 @@ public class ListItem implements Serializable {
 
     private static final long serialVersionUID = 4922783195826653362L;
 
-    public static final String LIST_ID_FIELD = "list";
-    public static final String PRODUCT_ID_FIELD = "product";
+    public static final String TABLE_NAME = "list_item";
+    public static final String ID_FIELD_NAME = "id";
+    public static final String LIST_ID_FIELD = "list_id";
+    public static final String PRODUCT_ID_FIELD = "product_id";
     public static final String AMOUNT_FIELD = "amount";
     public static final String BOUGHT_FIELD = "bought";
     public static final String UNIT = "unit";
 
-    @DatabaseField(generatedId = true)
+
     private Integer id;
 
-    @DatabaseField(foreign = true, columnName = LIST_ID_FIELD)
     private ShoppingList list;
 
-    @DatabaseField(foreign = true, columnName = PRODUCT_ID_FIELD)
     private Product product;
 
-    @DatabaseField(columnName = AMOUNT_FIELD)
     private Double amount;
 
-    @DatabaseField(columnName = BOUGHT_FIELD)
     private Boolean bought;
 
-    @DatabaseField(columnName = UNIT)
     private String unit;
 
     public ListItem() {
@@ -108,6 +103,14 @@ public class ListItem implements Serializable {
         this.bought = bought;
     }
 
+    public void setBought(String boughtStr) {
+    	if (boughtStr != null && boughtStr.equalsIgnoreCase("true")) {
+    		this.bought = true;
+    	} else {
+    		this.bought = false;
+    	}
+    }
+    
     public String getUnit() {
         return unit;
     }

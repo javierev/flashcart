@@ -22,6 +22,7 @@ package com.valdaris.shoppinglist;
 import java.sql.SQLException;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,17 +37,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.stmt.QueryBuilder;
-import com.valdaris.shoppinglist.dao.DatabaseHelper;
 import com.valdaris.shoppinglist.model.Product;
 
 /**
  * @author Javier Estévez
  * 
  */
-public class ProductList extends OrmLiteBaseActivity<DatabaseHelper> {
+public class ProductList extends Activity {
 
     private ListView listView;
 
@@ -112,13 +109,13 @@ public class ProductList extends OrmLiteBaseActivity<DatabaseHelper> {
 
     private void fillList() throws SQLException {
         Log.i(ProductList.class.getName(), "Showing product list");
-        Dao<Product, Integer> dao = getHelper().getProductDao();
-        QueryBuilder<Product, Integer> builder = dao.queryBuilder();
-        builder.orderBy(Product.NAME_FIELD_NAME, true).limit(30);
-        List<Product> list = dao.query(builder.prepare());
-        ArrayAdapter<Product> arrayAdapter = new ProductsAdapter(this,
-                R.layout.product_row, list);
-        listView.setAdapter(arrayAdapter);
+//        Dao<Product, Integer> dao = getHelper().getProductDao();
+//        QueryBuilder<Product, Integer> builder = dao.queryBuilder();
+//        builder.orderBy(Product.NAME_FIELD_NAME, true).limit(30);
+//        List<Product> list = dao.query(builder.prepare());
+//        ArrayAdapter<Product> arrayAdapter = new ProductsAdapter(this,
+//                R.layout.product_row, list);
+//        listView.setAdapter(arrayAdapter);
     }
 
     private class ProductsAdapter extends ArrayAdapter<Product> {

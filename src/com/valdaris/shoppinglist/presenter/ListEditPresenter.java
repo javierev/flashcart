@@ -21,10 +21,9 @@ package com.valdaris.shoppinglist.presenter;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.dao.IDataHandler;
+import com.valdaris.shoppinglist.dao.ShoppingListDao;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.ShoppingList;
-import com.valdaris.shoppinglist.view.IListEdit;
 
 /**
  * @author Javier Estévez
@@ -32,28 +31,18 @@ import com.valdaris.shoppinglist.view.IListEdit;
  */
 public class ListEditPresenter {
 
-    IListEdit view;
-    IDataHandler dataHandler;
+    ShoppingListDao dataHandler;
     private ShoppingList list;
 
-    public ListEditPresenter(IListEdit view, IDataHandler dataHandler) {
-        this.view = view;
-        this.dataHandler = dataHandler;
-        this.list = new ShoppingList();
-    }
-
-    public void fillList(int listId) {
+    public List<ListItem> getProductList(int listId) {
 
         list.setId(listId);
 
-        List<ListItem> products = dataHandler.getListProducts(list);
+        return dataHandler.getListProducts(list);
 
-        view.fillList(products);
     }
 
-    public void saveList() {
-
-        List<ListItem> products = view.getProducts();
+    public void saveList(List<ListItem> products) {
 
         dataHandler.setListProducts(list, products);
 

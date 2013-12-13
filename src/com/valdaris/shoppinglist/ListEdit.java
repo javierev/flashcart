@@ -22,6 +22,7 @@ package com.valdaris.shoppinglist;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,9 +36,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.j256.ormlite.android.apptools.OrmLiteBaseActivity;
-import com.valdaris.shoppinglist.dao.DatabaseHelper;
-import com.valdaris.shoppinglist.dao.impl.DataHandler;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.Product;
 import com.valdaris.shoppinglist.presenter.ListEditPresenter;
@@ -47,7 +45,7 @@ import com.valdaris.shoppinglist.view.IListEdit;
  * @author Javier Estévez
  * 
  */
-public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
+public class ListEdit extends Activity implements
         IListEdit {
 
     private static final String LIST_ID = "listId";
@@ -61,7 +59,7 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new ListEditPresenter(this, new DataHandler(getHelper()));
+        presenter = new ListEditPresenter();
 
         setContentView(R.layout.list_edit);
 
@@ -72,7 +70,7 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
 
             @Override
             public void onClick(View arg0) {
-                presenter.saveList();
+                presenter.saveList(getProducts());
             }
         });
         
@@ -90,7 +88,7 @@ public class ListEdit extends OrmLiteBaseActivity<DatabaseHelper> implements
 
     protected void onResume() {
         super.onResume();
-        presenter.fillList(getListId());
+        presenter.getProductList(getListId());
     }
 
     public static void callMe(Context c, Integer listId) {

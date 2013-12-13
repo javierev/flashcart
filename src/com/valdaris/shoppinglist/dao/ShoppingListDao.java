@@ -1,7 +1,7 @@
 /**
  * This file is part of Flash Cart.
  *
- * Copyright (C) 2012 Javier Estévez
+ * Copyright (C) 2011 Javier Estévez
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published
@@ -22,32 +22,27 @@ package com.valdaris.shoppinglist.dao;
 import java.util.List;
 
 import com.valdaris.shoppinglist.model.ListItem;
-import com.valdaris.shoppinglist.model.Product;
+import com.valdaris.shoppinglist.model.ShoppingList;
 
-public interface IListItemDao {
-
-    /**
-     * Obtains a list of products with the given name.
-     * 
-     * @param name
-     *            the name of the products to be found.
-     * @return list of products.
-     */
-    public List<Product> findProductsByName(String name);
+/**
+ * @author Javier Estévez
+ * 
+ */
+public interface ShoppingListDao {
 
     /**
-     * Saves the list item.
+     * Obtains a list of all shopping lists.
      * 
-     * @param listItem
+     * @return list of shopping lists.
      */
-    public void saveOrUpdate(ListItem listItem);
+    public List<ShoppingList> getLists();
 
     /**
-     * Gets the list item with the given id.
+     * Saves a new shopping list on the Data Base.
      * 
-     * @param id
-     * @return
+     * @param list
+     *            shopping list
      */
-    public ListItem getListItem(Integer id);
+    public void create(ShoppingList list);
 
 }
