@@ -23,6 +23,7 @@ import java.util.List;
 
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.Product;
+import com.valdaris.shoppinglist.model.ShoppingList;
 
 public interface ListItemDao {
 
@@ -49,5 +50,24 @@ public interface ListItemDao {
      * @return
      */
     public ListItem getListItem(Integer id);
+    
+    /**
+     * Obtains all products from a given shopping list.
+     * 
+     * @param list
+     *            the shopping list.
+     * @return list of products.
+     */
+    public List<ListItem> getListItems(ShoppingList list);
+
+    /**
+     * Saves all products in list.
+     * 
+     * @param list
+     *            the shopping list
+     * @param items
+     *            list of products to attach to the shopping list.
+     */
+    public void setListItems(ShoppingList list, List<ListItem> items);
 
 }

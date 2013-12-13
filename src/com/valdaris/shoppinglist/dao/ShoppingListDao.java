@@ -45,23 +45,4 @@ public interface ShoppingListDao {
      */
     public void create(ShoppingList list);
 
-    /**
-     * Obtains all products from a given shopping list.
-     * 
-     * @param list
-     *            the shopping list.
-     * @return list of products.
-     */
-    public List<ListItem> getListProducts(ShoppingList list);
-
-    /**
-     * Saves all products in list.
-     * 
-     * @param list
-     *            the shopping list
-     * @param products
-     *            list of products to attach to the shopping list.
-     */
-    public void setListProducts(ShoppingList list, List<ListItem> products);
-
 }
