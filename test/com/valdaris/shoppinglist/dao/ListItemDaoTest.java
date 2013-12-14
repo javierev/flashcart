@@ -112,4 +112,16 @@ public class ListItemDaoTest implements ListItemDao {
         listItems.put(0, listItem);
     }
 
+	@Override
+	public List<ListItem> getListItems(ShoppingList list) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setListItems(ShoppingList list, List<ListItem> items) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -81,7 +81,7 @@ public class Main extends Activity implements
                 switch (list.getStatus()) {
                 case ShoppingList.EMPTY:
                 case ShoppingList.INCOMPLETE:
-                    ListEdit.callMe(Main.this, list.getId());
+                    ListEdit.callMe(Main.this, list);
                     break;
                 case ShoppingList.COMPLETE:
                 case ShoppingList.FINISHED:

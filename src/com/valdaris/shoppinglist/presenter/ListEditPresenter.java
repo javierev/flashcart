@@ -21,7 +21,7 @@ package com.valdaris.shoppinglist.presenter;
 
 import java.util.List;
 
-import com.valdaris.shoppinglist.dao.ShoppingListDao;
+import com.valdaris.shoppinglist.dao.ListItemDao;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.ShoppingList;
 
@@ -31,20 +31,22 @@ import com.valdaris.shoppinglist.model.ShoppingList;
  */
 public class ListEditPresenter {
 
-    ShoppingListDao dataHandler;
+    ListItemDao dataHandler;
     private ShoppingList list;
+    
+    public ListEditPresenter(ShoppingList list, ListItemDao dao) {
+    	this.list = list;
+    	this.dataHandler = dao;
+    }
 
-    public List<ListItem> getProductList(int listId) {
-
-        list.setId(listId);
-
-        return dataHandler.getListProducts(list);
+    public List<ListItem> getProductList() {
+        return dataHandler.getListItems(list);
 
     }
 
     public void saveList(List<ListItem> products) {
 
-        dataHandler.setListProducts(list, products);
+        dataHandler.setListItems(list, products);
 
     }
     

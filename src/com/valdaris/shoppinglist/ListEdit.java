@@ -36,8 +36,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.valdaris.shoppinglist.dao.impl.ListItemDaoImpl;
 import com.valdaris.shoppinglist.model.ListItem;
 import com.valdaris.shoppinglist.model.Product;
+import com.valdaris.shoppinglist.model.ShoppingList;
 import com.valdaris.shoppinglist.presenter.ListEditPresenter;
 import com.valdaris.shoppinglist.view.IListEdit;
 
@@ -48,7 +50,7 @@ import com.valdaris.shoppinglist.view.IListEdit;
 public class ListEdit extends Activity implements
         IListEdit {
 
-    private static final String LIST_ID = "listId";
+    private static final String LIST = "list";
 
     private ListView listView;
     private Button saveButton;
@@ -59,7 +61,7 @@ public class ListEdit extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter = new ListEditPresenter();
+        presenter = new ListEditPresenter(getList(), new ListItemDaoImpl());
 
         setContentView(R.layout.list_edit);
 
@@ -80,7 +82,7 @@ public class ListEdit extends Activity implements
             @Override
             public void onClick(View arg1) {
                 Log.i(ListEdit.class.getName(), "Adding a product in list id "
-                        + getListId());
+                        + getList().getId());
             }
         });
 
@@ -88,17 +90,17 @@ public class ListEdit extends Activity implements
 
     protected void onResume() {
         super.onResume();
-        presenter.getProductList(getListId());
+        presenter.getProductList();
     }
 
-    public static void callMe(Context c, Integer listId) {
+    public static void callMe(Context c, ShoppingList list) {
         Intent intent = new Intent(c, ListEdit.class);
-        intent.putExtra(LIST_ID, listId);
+        intent.putExtra(LIST, list);
         c.startActivity(intent);
     }
 
-    private int getListId() {
-        return getIntent().getIntExtra(LIST_ID, -1);
+    private ShoppingList getList() {
+        return (ShoppingList) getIntent().getSerializableExtra(LIST);
     }
 
     /*
@@ -109,7 +111,7 @@ public class ListEdit extends Activity implements
     @Override
     public void fillList(List<ListItem> products) {
         Log.i(ListEdit.class.getName(), "Showing products in list id "
-                + getListId());
+                + getList().getId());
         ArrayAdapter<ListItem> arrayAdapter = new ListProductAdapter(this,
                 R.layout.list_edit_row, products);
         listView.setAdapter(arrayAdapter);
