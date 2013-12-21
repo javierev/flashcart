@@ -57,7 +57,8 @@ public class ListEdit extends Activity implements
     private Button addProductButton;
     
 	private TextView itemNameField;
-	private TextView additemAmountField;
+	private TextView amountField;
+	private TextView unitField;
 
     private ListEditPresenter presenter;
 
@@ -71,7 +72,8 @@ public class ListEdit extends Activity implements
         listView = (ListView) findViewById(R.id.edit_product_list);
         
         itemNameField = (TextView) findViewById(R.id.addProductField);
-        additemAmountField = (TextView) findViewById(R.id.addProductAmountField);
+        amountField = (TextView) findViewById(R.id.addProductAmountField);
+        unitField = (TextView) findViewById(R.id.addProductUnitField);
 
         saveButton = (Button) findViewById(R.id.saveList);
         saveButton.setOnClickListener(new AdapterView.OnClickListener() {
@@ -92,14 +94,20 @@ public class ListEdit extends Activity implements
                 
                 ListItem item = new ListItem();
                 //TODO parse exception!!
-                Double amount = Double.parseDouble(additemAmountField.getText().toString());
+                Double amount = Double.parseDouble(amountField.getText().toString());
                 item.setAmount(amount);
                 item.setBought(false);
+                item.setUnit(unitField.getText().toString());
+                //product
                 Product product = new Product();
                 product.setName(itemNameField.getText().toString());
                 item.setProduct(product);
                 presenter.addProduct(item);
                 fillList(presenter.getProductList());
+                
+                itemNameField.setText("");
+                amountField.setText("");
+                unitField.setText("");
             }
         });
 
