@@ -110,6 +110,7 @@ public class Main extends Activity implements
         switch (item.getItemId()) {
         case INSERT_ID:
             presenter.createList();
+            fillList(presenter.getLists());
             return true;
         }
         return super.onMenuItemSelected(featureId, item);
