@@ -12,7 +12,6 @@
   	android:layout_weight="1" />
 
   <LinearLayout 
-  	xmlns:android="http://schemas.android.com/apk/res/android"
   	android:layout_width="fill_parent"
   	android:layout_height="wrap_content"
   	android:orientation="horizontal" >
@@ -22,6 +21,13 @@
   		android:singleLine="true"
   		android:layout_weight="1"
   		android:id="@+id/addProductField" />
+
+  	<EditText
+  	    android:id="@+id/addProductAmountField"
+  	    android:layout_width="wrap_content"
+  	    android:layout_height="wrap_content"
+  	    android:layout_weight="0.14"
+  	    android:singleLine="true" />
   	<Button
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"

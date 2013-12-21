@@ -21,7 +21,9 @@ package com.valdaris.shoppinglist.model;
 
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -54,8 +56,10 @@ public class ShoppingList implements Serializable {
     private char status = EMPTY;
 
     private String name;
+    
+    private List<ListItem> listItems;
 
-    public Integer getId() {
+	public Integer getId() {
         return id;
     }
 
@@ -112,5 +116,22 @@ public class ShoppingList implements Serializable {
             this.status = status.charAt(0);
         }
     }
+    
+    public List<ListItem> getListItems() {
+		return listItems;
+	}
+    
+    public void setListItems(List<ListItem> listItems) {
+		this.listItems = listItems;
+	}
+
+	public void addListItem(ListItem listItem) {
+    	if (listItems == null) {
+    		listItems = new ArrayList<ListItem>();
+    	}
+    	listItems.add(listItem);
+    	setStatus(INCOMPLETE);
+    }
+
 
 }

@@ -55,6 +55,9 @@ public class ListEdit extends Activity implements
     private ListView listView;
     private Button saveButton;
     private Button addProductButton;
+    
+	private TextView itemNameField;
+	private TextView additemAmountField;
 
     private ListEditPresenter presenter;
 
@@ -66,6 +69,9 @@ public class ListEdit extends Activity implements
         setContentView(R.layout.list_edit);
 
         listView = (ListView) findViewById(R.id.edit_product_list);
+        
+        itemNameField = (TextView) findViewById(R.id.addProductField);
+        additemAmountField = (TextView) findViewById(R.id.addProductAmountField);
 
         saveButton = (Button) findViewById(R.id.saveList);
         saveButton.setOnClickListener(new AdapterView.OnClickListener() {
@@ -83,6 +89,17 @@ public class ListEdit extends Activity implements
             public void onClick(View arg1) {
                 Log.i(ListEdit.class.getName(), "Adding a product in list id "
                         + getList().getId());
+                
+                ListItem item = new ListItem();
+                //TODO parse exception!!
+                Double amount = Double.parseDouble(additemAmountField.getText().toString());
+                item.setAmount(amount);
+                item.setBought(false);
+                Product product = new Product();
+                product.setName(itemNameField.getText().toString());
+                item.setProduct(product);
+                presenter.addProduct(item);
+                fillList(presenter.getProductList());
             }
         });
 

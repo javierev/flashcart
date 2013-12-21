@@ -40,8 +40,12 @@ public class ListEditPresenter {
     }
 
     public List<ListItem> getProductList() {
-        return dataHandler.getListItems(list);
-
+    	List<ListItem> items = list.getListItems();
+    	if (items == null || items.isEmpty()) {
+    		items = dataHandler.getListItems(list);
+    		list.setListItems(items);
+    	}
+    	return list.getListItems();
     }
 
     public void saveList(List<ListItem> products) {
@@ -51,7 +55,8 @@ public class ListEditPresenter {
     }
     
     public void addProduct(ListItem product) {
-        
+    	product.setList(list);
+    	list.addListItem(product);
     }
     
 
