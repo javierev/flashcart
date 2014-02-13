@@ -50,8 +50,11 @@ public class ListItemDaoImpl implements ListItemDao {
 		db.beginTransaction();
 		try {
 			saveOrUpdateListItem(db, listItem);
+			db.setTransactionSuccessful();
 		} catch (Exception e) {
 			Log.e(TAG, "Error on saving list item", e);
+		} finally {
+		    db.close();
 		}
 
 	}
@@ -161,18 +164,27 @@ public class ListItemDaoImpl implements ListItemDao {
      * @param item list item to ve saved.
      */
 	private void saveOrUpdateListItem(SQLiteDatabase db, ListItem item) {
+	    
+	    //Step 0: make sure the foreign key is correct
+	    db.setForeignKeyConstraintsEnabled(true);
+	    
 		//Step 1: save product if it's not already on DB
 		Product product = item.getProduct();
 		if (product.getId() == null) {
 			ContentValues values = new ContentValues();
 			values.put(Product.NAME_FIELD_NAME, product.getName());
-			db.insertOrThrow(Product.TABLE_NAME, null, values);
+			long productId = db.insertOrThrow(Product.TABLE_NAME, null, values);
+			if (productId != -1) {
+			    product.setId((int) productId);
+			}
 		}
+		
 		//Step 2: save list item (it may be inserted or updated) 
 		ContentValues values = new ContentValues();
 		values.put(ListItem.AMOUNT_FIELD, item.getAmount());
 		values.put(ListItem.BOUGHT_FIELD, item.getBought());
 		values.put(ListItem.UNIT, item.getUnit());
+		values.put(ListItem.PRODUCT_ID_FIELD, product.getId());
 		if (item.getId() == null) {
 			db.insertOrThrow(ListItem.TABLE_NAME, null, values);
 		} else {
