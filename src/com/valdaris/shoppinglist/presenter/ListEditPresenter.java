@@ -48,17 +48,21 @@ public class ListEditPresenter {
     	return list.getListItems();
     }
 
-    public void saveList(List<ListItem> products) {
+    public void saveList() {
 
-        dataHandler.setListItems(list, products);
+        dataHandler.saveListItems(list.getListItems());
 
     }
     
-    public void addProduct(ListItem product) {
-    	product.setList(list);
-    	list.addListItem(product);
+    public void addProduct(String itemName, String amount,
+    		String unit) {
+    	
+    	list.addListItem(itemName, amount, unit);
+
     }
     
-
+    protected ShoppingList getList() {
+    	return list;
+    }
 
 }

@@ -136,13 +136,13 @@ public class ListItemDaoImpl implements ListItemDao {
 	}
 
     @Override
-    public void setListItems(ShoppingList list, List<ListItem> products) {
+    public void saveListItems(List<ListItem> listItems) {
     	
     	SQLiteDatabase db = new DatabaseHelper().getReadableDatabase();
     	db.beginTransaction();
     	
     	try {
-    		for (ListItem item : products) {
+    		for (ListItem item : listItems) {
     			saveOrUpdateListItem(db, item);
     		}
     		db.setTransactionSuccessful();

@@ -23,10 +23,17 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import com.valdaris.shoppinglist.exception.InvalidValueException;
+import com.valdaris.shoppinglist.exception.RepeatedProductException;
 
 /**
+ * Class for a shopping list
+ * 
  * @author Javier Estévez
  * 
  */
@@ -57,7 +64,9 @@ public class ShoppingList implements Serializable {
 
     private String name;
     
-    private List<ListItem> listItems;
+    private Map<String, ListItem> listItems;
+    
+    private ListItem lastInsertion = null;
 
 	public Integer getId() {
         return id;
@@ -118,20 +127,54 @@ public class ShoppingList implements Serializable {
     }
     
     public List<ListItem> getListItems() {
-		return listItems;
+		return new ArrayList<ListItem>(listItems.values());
 	}
     
     public void setListItems(List<ListItem> listItems) {
-		this.listItems = listItems;
+    	for (ListItem item : listItems) {
+    		addListItem(item);
+    	}
 	}
 
-	public void addListItem(ListItem listItem) {
+	private void addListItem(ListItem listItem) {
     	if (listItems == null) {
-    		listItems = new ArrayList<ListItem>();
+    		listItems = new HashMap<String, ListItem>();
     	}
-    	listItems.add(listItem);
+    	String productName = listItem.getProduct().getName();
+		if (listItems.containsKey(productName)) {
+    		throw new RepeatedProductException();
+    	}
+    	listItems.put(productName, listItem);
+    	lastInsertion = listItem;
     	setStatus(INCOMPLETE);
     }
+
+	public ListItem getLastInsertedItem() {
+		return lastInsertion;
+	}
+	
+	public void addListItem(String productName, String amount, 
+			String unit) {
+		
+		try {
+			Double amountD = Double.parseDouble(amount);
+			ListItem item = new ListItem();
+			Product p = new Product();
+			p.setName(productName);
+			item.setProduct(p);
+			item.setAmount(amountD);
+			item.setUnit(unit);
+			item.setBought(false);
+			addListItem(item);
+		} catch (NumberFormatException e) {
+			String message = String.format("%s is not a valid number", amount);
+			throw new InvalidValueException(message, e);
+		}
+	}
+
+	public ListItem getListItemByProductName(String productName) {
+		return listItems.get(productName);
+	}
 
 
 }

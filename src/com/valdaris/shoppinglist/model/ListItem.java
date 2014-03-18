@@ -21,6 +21,8 @@ package com.valdaris.shoppinglist.model;
 
 import java.io.Serializable;
 
+import com.valdaris.shoppinglist.util.ObjectUtil;
+
 /**
  * @author Javier Estévez
  * 
@@ -119,4 +121,30 @@ public class ListItem implements Serializable {
         this.unit = unit;
     }
 
+	@Override
+	public boolean equals(Object o) {
+		
+		if (o==null) return false;
+		if (!(o instanceof ListItem)) return false;
+		ListItem other = (ListItem) o;
+		if (!ObjectUtil.equals(this.id, other.id)) return false;
+		if (!ObjectUtil.equals(this.amount, other.amount)) return false;
+		if (!ObjectUtil.equals(this.unit, other.unit)) return false;
+		if (!ObjectUtil.equals(this.bought, other.bought)) return false;
+		if (!ObjectUtil.equals(this.product, other.product)) return false;
+		
+		return true;
+		
+	}
+
+	@Override
+	public int hashCode() {
+		return (id!= null ? id.hashCode() : 1) * 
+				(amount!=null ? amount.hashCode() : 1) * 
+				(unit != null ? unit.hashCode() : 1) * 
+				(bought != null ? bought.hashCode() : 1) * 
+				(product != null ? product.hashCode() : 1);
+	}
+    
+    
 }

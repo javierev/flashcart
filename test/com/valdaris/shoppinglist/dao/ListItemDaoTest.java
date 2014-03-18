@@ -119,7 +119,7 @@ public class ListItemDaoTest implements ListItemDao {
 	}
 
 	@Override
-	public void setListItems(ShoppingList list, List<ListItem> items) {
+	public void saveListItems(List<ListItem> items) {
 		// TODO Auto-generated method stub
 		
 	}

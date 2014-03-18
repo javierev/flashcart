@@ -21,6 +21,8 @@ package com.valdaris.shoppinglist.model;
 
 import java.io.Serializable;
 
+import com.valdaris.shoppinglist.util.ObjectUtil;
+
 /**
  * @author Javier Estévez
  * 
@@ -53,5 +55,23 @@ public class Product implements Serializable {
     public String getName() {
         return name;
     }
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Product)) return false;
+		Product other = (Product) o;
+		if (!ObjectUtil.equals(this.id, other.id)) return false;
+		if (!ObjectUtil.equals(this.name, other.name)) return false;
+		
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return (id != null ? id.hashCode() : 1) *
+				(name != null ? name.hashCode() : 1);
+	}
+    
+    
 
 }

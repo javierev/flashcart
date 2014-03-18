@@ -80,7 +80,7 @@ public class ListEdit extends Activity implements
 
             @Override
             public void onClick(View arg0) {
-                presenter.saveList(getProducts());
+                presenter.saveList(presenter.getProductList());
             }
         });
         
@@ -92,17 +92,9 @@ public class ListEdit extends Activity implements
                 Log.i(ListEdit.class.getName(), "Adding a product in list id "
                         + getList().getId());
                 
-                ListItem item = new ListItem();
-                //TODO parse exception!!
-                Double amount = Double.parseDouble(amountField.getText().toString());
-                item.setAmount(amount);
-                item.setBought(false);
-                item.setUnit(unitField.getText().toString());
-                //product
-                Product product = new Product();
-                product.setName(itemNameField.getText().toString());
-                item.setProduct(product);
-                presenter.addProduct(item);
+                presenter.addProduct(itemNameField.getText().toString(),
+                		amountField.getText().toString(),
+                		unitField.getText().toString());
                 fillList(presenter.getProductList());
                 
                 itemNameField.setText("");

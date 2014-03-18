@@ -68,6 +68,6 @@ public interface ListItemDao {
      * @param items
      *            list of products to attach to the shopping list.
      */
-    public void setListItems(ShoppingList list, List<ListItem> items);
+    public void saveListItems(List<ListItem> items);
 
 }
